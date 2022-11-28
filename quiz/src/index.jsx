@@ -6,11 +6,13 @@ import Play from './Play';
 import Leaderboard from './Leaderboard';
 import Result from './Result';
 import SelectCategory from './SelectCategory';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+    <BrowserRouter>
     <Routes>
       
         <Route index element={<App />}></Route>
@@ -20,6 +22,7 @@ root.render(
         <Route path='/leaderboard' element={<Leaderboard />}></Route>
       
     </Routes>
+    </BrowserRouter>
 
 
 {/*<Routes>
