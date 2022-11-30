@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 function App() {
   return (
-    <div style={{minHeight:"100vh"}} className="d-flex p-5 text-center bg-light  justify-content-center align-items-center ">
+    <div style={{minHeight:"100vh"}} className="d-flex p-5 text-center  justify-content-center align-items-center ">
       <div className="">
         <h1>
           Welcome to Quiz Application!
