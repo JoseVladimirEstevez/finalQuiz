@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoryType from './CategoryType'
+import OptionButton from './OptionButton'
 import {Link} from 'react-router-dom'
 
 function Options() {
@@ -23,12 +23,12 @@ function Options() {
     </div>
 
   <div className="row">
-    <CategoryType name = "History"></CategoryType>
-    <CategoryType name = "Entertainement"></CategoryType>
+    <OptionButton name = "History"></OptionButton>
+    <OptionButton name = "Entertainement"></OptionButton>
   </div>
   <div className="row">
-  <CategoryType name = "Mythology"></CategoryType>
-  <CategoryType name = "Mathematics"></CategoryType>
+  <OptionButton name = "Mythology"></OptionButton>
+  <OptionButton name = "Mathematics"></OptionButton>
       
   </div>
   
