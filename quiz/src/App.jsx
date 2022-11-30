@@ -9,7 +9,7 @@ function App() {
         <h5  class=" py-5 ">Made by Vladimir and Munir.       
         </h5>
         <div> 
-        <button   type="button" class="px-5 py-3 btn btn-lg btn-secondary"> <Link style={{color:"inherit",textDecoration:"none"}} to="/play">Play</Link> </button>
+        <Link style={{color:"inherit",textDecoration:"none"}} to="/selectCategory"> <button   type="button" class="px-5 py-3 btn btn-lg btn-secondary">Play </button></Link>
         </div>
       </div>
     </div>
