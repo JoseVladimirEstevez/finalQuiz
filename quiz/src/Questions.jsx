@@ -35,4 +35,3 @@ function Questions(props) {
   </div>
 )}
 export default Questions
-export default Questions
