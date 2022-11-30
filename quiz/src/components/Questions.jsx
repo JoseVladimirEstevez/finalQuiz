@@ -2,7 +2,7 @@ import React from 'react'
 import OptionButton from './OptionButton'
 import {Link} from 'react-router-dom'
 
-function Questions(props) {
+function Questions() {
   return (
   
   <div>
@@ -17,7 +17,7 @@ function Questions(props) {
           <h1>
               {/*{props.category=""}*/}   Quiz
           </h1>
-          <h5  class=" py-3 ">
+          <h5  className=" py-3 ">
               {/*{props.question=""}*/}
           </h5>
         </div>

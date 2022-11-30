@@ -16,7 +16,7 @@ function Options() {
         <h1>
         New Quiz
         </h1>
-        <h5  class=" py-3 ">Please Select a category.       
+        <h5  className=" py-3 ">Please Select a category.       
         </h5>
         
       </div>
