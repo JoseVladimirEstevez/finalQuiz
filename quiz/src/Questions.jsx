@@ -6,26 +6,18 @@ function Questions(props) {
   return (
   
   <div>
-    <div className="container-flex">
-      <div className="row">
-        <div className="col">
-        <div className="m-4" >Q 1/10</div>
-        </div>
-        <div className="col">
-        <div style={{minWidt:"100px"}}>
-          <Link className="d-flex justify-content-end m-4" to="/"> <button> STOP</button> </Link> 
-        </div>
-        </div>
+    <div className=" " >Q 1/10
+      <div style={{minWidt:"100px"}}>
+        <Link className="d-flex justify-content-end " to="/">  <button> STOP</button> </Link> 
       </div>
     </div>
-    
     <div className='container-flex'>
       <div  className="d-flex p-3 text-center  justify-content-center align-items-center ">
         <div className="">
           <h1>
               {/*{props.category=""}*/}   Quiz
           </h1>
-          <h5  class=" py-3 ">
+          <h5  className=" py-3 ">
               {/*{props.question=""}*/}
           </h5>
         </div>

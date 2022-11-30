@@ -1,6 +1,6 @@
 import React from 'react'
-import Questions from './Questions'
-import QuizInformation from './QuizInformation'
+import Questions from './components/Questions'
+import QuizInformation from './components/QuizInformation'
 
 function play() {
   return (
