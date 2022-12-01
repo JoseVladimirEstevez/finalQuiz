@@ -2,42 +2,34 @@ import React from 'react'
 import OptionButton from './OptionButton'
 import {Link} from 'react-router-dom'
 
-function Questions() {
+function Questions(props) {
   return (
   
   <div>
-    <div className="container-flex">
-      <div className="row">
-        <div className="col">
-        <div className="m-4" >Q 1/10</div>
-        </div>
-        <div className="col">
-        <div style={{minWidt:"100px"}}>
-          <Link className="d-flex justify-content-end m-4" to="/"> <button> STOP</button> </Link> 
-        </div>
-        </div>
+    <div className=" " >Q 1/10
+      <div style={{minWidt:"100px"}}>
+        <Link className="d-flex justify-content-end " to="/">  <button> STOP</button> </Link> 
       </div>
     </div>
-    
     <div className='container-flex'>
       <div  className="d-flex p-3 text-center  justify-content-center align-items-center ">
         <div className="">
           <h1>
-              {/*{props.category=""}*/}   Quiz
+              "Category"   Quiz
           </h1>
           <h5  className=" py-3 ">
-              {/*{props.question=""}*/}
+              "Questions"
           </h5>
         </div>
       </div>
 
       <div className="row">
-        <OptionButton >{/*name = {props.correctAnswer}*/}</OptionButton>
-        <OptionButton >{/*name = {props.incorrectAnswer[0]}*/}</OptionButton>
+        <OptionButton linkTo = "../result" name = "AnswerExample"  ></OptionButton>
+        <OptionButton  linkTo = "../result" name = "AnswerExample"  ></OptionButton>
       </div>
       <div className="row">
-        <OptionButton >{/*name = {props.incorrectAnswer[1]}*/}</OptionButton>
-        <OptionButton >{/*name = {props.incorrectAnswer[2]}*/}</OptionButton>
+        <OptionButton linkTo = "../result" name = "AnswerExample"  ></OptionButton>
+        <OptionButton linkTo = "../result" name = "AnswerExample"  ></OptionButton>
       </div>
     </div>
   </div>
