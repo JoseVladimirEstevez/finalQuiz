@@ -15,6 +15,6 @@ td {
     border: 1px solid black;
 }
 
-td {
-    min-height: 10em;
+tr {
+    height: 3em;
 }
