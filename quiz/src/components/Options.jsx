@@ -23,12 +23,12 @@ function Options() {
     </div>
 
   <div className="row">
-    <OptionButton name = "History"></OptionButton>
-    <OptionButton name = "Entertainement"></OptionButton>
+    <OptionButton linkTo = "../play"   name = "History"></OptionButton>
+    <OptionButton linkTo = "../play" name = "Entertainement"></OptionButton>
   </div>
   <div className="row">
-  <OptionButton name = "Mythology"></OptionButton>
-  <OptionButton name = "Mathematics"></OptionButton>
+  <OptionButton linkTo = "../play"  name = "Mythology"></OptionButton>
+  <OptionButton  linkTo = "../play" name = "Mathematics"></OptionButton>
       
   </div>
   
