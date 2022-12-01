@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function result() {
+
   return (
     <div style={{minHeight:"100vh"}} className="d-flex p-5 text-center  justify-content-center align-items-center ">
       <div >
@@ -9,11 +11,11 @@ function result() {
       <div className="container">
         <div className="row align-items-center">
           <div className="col justify-content-end d-flex"><h3>Name</h3></div>
-          <div className="col"><input type="text" /></div>
-          <div className="col"><button   type="button" className="btn btn-lg btn-secondary">Save score to Leaderboard </button></div>
+          <div className="col"><input type="text" id='Username'/></div>
+          <div className="col"><Link to='../leaderboard'><button type="button" className="btn btn-lg btn-secondary" >Save score to Leaderboard </button></Link></div>
         </div>
       </div>
-      <button   type="button" class="px-5 py-3 mt-5 btn btn-lg btn-secondary">Replay </button>
+      <Link to='../selectCategory'><button type="button" className="px-5 py-3 mt-5 btn btn-lg btn-secondary">Replay</button></Link>
 
       </div>
     </div>
