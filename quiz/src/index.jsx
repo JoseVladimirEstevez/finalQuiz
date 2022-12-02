@@ -23,17 +23,5 @@ root.render(
       
     </Routes>
     </BrowserRouter>
-
-
-{/*<Routes>
-      <Route path='/' element={<Navbar/>}>
-        <Route index element={<App />}></Route>
-        <Route path='/instructions' element={<Instructions />}></Route>
-        <Route path='/task1' element={<RequestMaker />}></Route>
-        <Route path='/task2' element={ <Basket />}></Route>
-        <Route path='/task3' element={<ColorPicker />}></Route>
-      </Route>
-    </Routes>
-*/} 
   </React.StrictMode>
 );
