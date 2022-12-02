@@ -21,7 +21,7 @@ function play() {
       <div className="container-flex">
         <div className="d-flex p-3 text-center  justify-content-center align-items-center ">
           <div className="">
-            <h1>{CategoryName} Quiz</h1>
+            <h1>{categoryName} Quiz</h1>
             <h5 className=" py-3 ">"Questions"</h5>
           </div>
         </div>
