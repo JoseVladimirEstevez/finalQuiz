@@ -1,42 +1,36 @@
-import React from 'react'
-import OptionButton from './components/OptionButton'
-import {Link} from 'react-router-dom'
+import React from "react";
+import OptionButton from "./components/OptionButton";
+import { Link } from "react-router-dom";
 function play() {
   return (
-    
-
     <div>
-    <div className=" " >Q 1/10
-      <div style={{minWidt:"100px"}}>
-        <Link className="d-flex justify-content-end " to="/">  <button> STOP</button> </Link> 
-      </div>
-    </div>
-    <div className='container-flex'>
-      <div  className="d-flex p-3 text-center  justify-content-center align-items-center ">
-        <div className="">
-          <h1>
-              "Category"   Quiz
-          </h1>
-          <h5  className=" py-3 ">
-              "Questions"
-          </h5>
+      <div className=" ">
+        Q 1/10
+        <div style={{ minWidt: "100px" }}>
+          <Link className="d-flex justify-content-end " to="/">
+            <button> STOP</button>
+          </Link>
         </div>
       </div>
+      <div className="container-flex">
+        <div className="d-flex p-3 text-center  justify-content-center align-items-center ">
+          <div className="">
+            <h1>"Category" Quiz</h1>
+            <h5 className=" py-3 ">"Questions"</h5>
+          </div>
+        </div>
 
-      <div className="row">
-        <OptionButton linkTo = "../result" name = "AnswerExample"  ></OptionButton>
-        <OptionButton  linkTo = "../result" name = "AnswerExample"  ></OptionButton>
-      </div>
-      <div className="row">
-        <OptionButton linkTo = "../result" name = "AnswerExample"  ></OptionButton>
-        <OptionButton linkTo = "../result" name = "AnswerExample"  ></OptionButton>
+        <div className="row">
+          <OptionButton linkTo="../result" name="AnswerExample"></OptionButton>
+          <OptionButton linkTo="../result" name="AnswerExample"></OptionButton>
+        </div>
+        <div className="row">
+          <OptionButton linkTo="../result" name="AnswerExample"></OptionButton>
+          <OptionButton linkTo="../result" name="AnswerExample"></OptionButton>
+        </div>
       </div>
     </div>
-  </div>
-
-
-
-  )
+  );
 }
 
-export default play
+export default play;
