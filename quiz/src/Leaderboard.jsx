@@ -1,19 +1,46 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Row from "./components/Row";
-import { Link } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
+import { token, top10route } from "./constants";
 
-function leaderboard() {
-  const arr = [{ name: "afd", category: "afda", score: "2" }];
+function Leaderboard() {
+  const [scores, setScores] = useState([]);
+  
+  const top10scores = [];
 
-  let data = [];
+  useEffect(() => {
+    //called upon component mount
+    fetchScores()
+  }, [])
 
-  for (let i = 0; i < 10; i++) {
-    if (arr[i] != null) {
-      data.push(arr[i]);
-    } else {
-      data.push({ name: " ", category: " ", score: " " });
+  async function fetchScores(){
+    const options = {
+      method:"GET",
+      headers: {
+        "Authorization": token
+      }
     }
+
+    const response = await fetch(top10route, options)
+    console.log('response.status: ', response.status);
+    const data = await response.json();
+    console.log('data: ', data);
+
+    //setScores(data);
+
+    for (let i = 0; i < 10; i++) {
+      if (data[i]) {
+        top10scores.push({name: data[i].name, categoryName: data[i].categoryName, score: data[i].score});
+        console.log('top10scores: ', top10scores);
+      } else {
+        top10scores.push({ name: " ", categoryName: " ", score: " " });
+      }
+    }
+    setScores(top10scores)
   }
+
+  
+
   return (
     <div>
       <div className="container">
@@ -42,11 +69,11 @@ function leaderboard() {
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => {
+              {scores.map((item, index) => {
                 return (
                   <Row
                     name={item.name}
-                    category={item.category}
+                    category={item.categoryName}
                     score={item.score}
                     key={index}
                   ></Row>
@@ -60,4 +87,4 @@ function leaderboard() {
   );
 }
 
-export default leaderboard;
+export default Leaderboard;
