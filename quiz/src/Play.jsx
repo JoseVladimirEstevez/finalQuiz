@@ -10,12 +10,12 @@ function play() {
   
   return (
     <div>
-      <div className=" ">
-        Q {questionNumber}/10
-        <div style={{ minWidt: "100px" }}>
-          <Link className="d-flex justify-content-end " to="/">
-            <button> STOP</button>
-          </Link>
+      <div className="container-flex">
+        <div className="row m-4">
+          <div className="col">Q {questionNumber}/10</div>
+          <div className="col"><Link className="d-flex justify-content-end " to="/">
+              <button> STOP</button>
+            </Link></div>
         </div>
       </div>
       <div className="container-flex">
