@@ -1,35 +1,40 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { scores, token } from "./constants";
 
 
 function Result() {
 
-  const random = Math.round(Math.random * 10);
+  const random = Math.round(Math.random() * 10);
   const [name, setName] = useState("");
   console.log('name: ', name);
+
+const navigate =  useNavigate();
+  const data = {
+    "score": random,
+    "name": name,
+    "categoryId": 24,
+    "categoryName": "Theory"
+  }
 
   async function SaveName(){
     const options = {
       method:"POST",
       headers: {
-        "Authorization": token
+        "Authorization": token,
+        'Content-type': 'application/json'
       },
-      body: { "score": random,
-      "name": "MUNIR",
-      "categoryId": 24,
-      "categoryName": "Theory" }
+      body: JSON.stringify(data)
     }
 
     const response = await fetch(scores, options)
-    console.log('response.status: ', response.status);
+    console.log('response: ', response);
+    
+    navigate("../leaderboard")
   }
 
-  useEffect(() =>{
-SaveName()
-  },[])
 
 
   return (
@@ -50,11 +55,11 @@ SaveName()
  type="text" id="Username"/>
             </div>
             <div  className="col">
-              <Link to="../leaderboard">
-                <button type="button" className="btn btn-lg btn-secondary" onClick={()=> SaveName} >
+              
+                <button type="button" className="btn btn-lg btn-secondary" onClick={()=> SaveName()} >
                   Save score to Leaderboard 
                 </button>
-              </Link>
+              
             </div>
           </div>
         </div>
