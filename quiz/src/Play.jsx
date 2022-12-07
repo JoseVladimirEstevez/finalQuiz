@@ -13,8 +13,8 @@ function play() {
       <div className="container-flex">
         <div className="row m-4">
           <div className="col">Q {questionNumber}/10</div>
-          <div className="col"><Link className="d-flex justify-content-end " to="/">
-              <button> STOP</button>
+          <div className="col"><Link style={{ color: "inherit", textDecoration: "none" }} className="d-flex justify-content-end " to="/">
+              <button > STOP</button>
             </Link></div>
         </div>
       </div>
