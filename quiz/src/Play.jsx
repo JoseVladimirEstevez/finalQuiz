@@ -12,8 +12,13 @@ function Play() {
   
   useEffect(()=> {
 
-    localStorage.getItem("Category");
-  const version = query.get("version");
+    
+  const CategoryId = query.get("categoryId");
+
+  
+
+  console.log('CategoryId: ', CategoryId);
+
   },[])
   
   
@@ -32,7 +37,7 @@ function Play() {
       <div className="container-flex">
         <div className="d-flex p-3 text-center  justify-content-center align-items-center ">
           <div className="">
-            <h1>{categoryName} Quiz</h1>
+            <h1>{localStorage.getItem("CategoryName")} Quiz</h1>
             <h5 className=" py-3 ">"Questions"</h5>
           </div>
         </div>

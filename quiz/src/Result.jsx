@@ -1,28 +1,41 @@
 import React from "react";
-import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { scores, token } from "./constants";
 
 
-function result() {
+function Result() {
 
-  const random = Math.round(Math.random * 10);
+  const random = Math.round(Math.random() * 10);
+  const [name, setName] = useState("");
+  console.log('name: ', name);
+
+const navigate =  useNavigate();
+  const data = {
+    "score": random,
+    "name": name,
+    "categoryId": 24,
+    "categoryName": "Theory"
+  }
 
   async function SaveName(){
     const options = {
       method:"POST",
       headers: {
-        "Authorization": token
+        "Authorization": token,
+        'Content-type': 'application/json'
       },
-      body: { "score": random,
-      "name": "adfas",
-      "categoryId": 24,
-      "categoryName": "Theory" }
+      body: JSON.stringify(data)
     }
 
     const response = await fetch(scores, options)
-    console.log('response.status: ', response.status);
+    console.log('response: ', response);
+    
+    navigate("../leaderboard")
   }
+
+
 
   return (
     <div
@@ -38,14 +51,15 @@ function result() {
               <h3>Name</h3>
             </div>
             <div className="col">
-              <input type="text" id="Username"/>
+              <input onChange={event => setName(event.target.value)}
+ type="text" id="Username"/>
             </div>
-            <div className="col">
-              <Link to="../leaderboard">
-                <button type="button" className="btn btn-lg btn-secondary" /*{onClick={SaveName()}}*/ >
-                  Save score to Leaderboard{" "}
+            <div  className="col">
+              
+                <button type="button" className="btn btn-lg btn-secondary" onClick={()=> SaveName()} >
+                  Save score to Leaderboard 
                 </button>
-              </Link>
+              
             </div>
           </div>
         </div>
@@ -62,4 +76,4 @@ function result() {
   );
 }
 
-export default result;
+export default Result;
