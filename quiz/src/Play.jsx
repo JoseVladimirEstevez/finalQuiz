@@ -1,13 +1,24 @@
 import React from "react";
 import OptionButton from "./components/OptionButton";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 
-function play() {
+function Play() {
 
   const questionNumber =1; 
   const categoryName = "History";
+  const [query, setQuery] = useSearchParams();
   
+  useEffect(()=> {
+
+    localStorage.getItem("Category");
+  const version = query.get("version");
+  },[])
+  
+  
+
+
   return (
     <div>
       <div className="container-flex">
@@ -39,4 +50,4 @@ function play() {
   );
 }
 
-export default play;
+export default Play;

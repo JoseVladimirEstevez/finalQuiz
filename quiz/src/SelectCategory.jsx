@@ -2,8 +2,17 @@ import React from "react";
 
 import OptionButton from "./components/OptionButton";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function selectCategory() {
+
+
+
+
+
+
+
+
   return (
     <div>
       <Link to="/">
@@ -19,15 +28,15 @@ function selectCategory() {
         </div>
 
         <div className="row">
-          <OptionButton linkTo="../play" name="History"></OptionButton>
-          <OptionButton linkTo="../play" name="Entertainement"></OptionButton>
+          <OptionButton linkTo="../play?version=history" name="History" id="23"></OptionButton>
+          <OptionButton linkTo="../play?version=entertainement" name="Entertainement: Video-Games" id="15"></OptionButton>
         </div>
         <div className="row">
-          <OptionButton linkTo="../play" name="Mythology"></OptionButton>
-          <OptionButton linkTo="../play" name="Mathematics"></OptionButton>
+          <OptionButton linkTo="../play?version=mythology" name="Mythology" id="20"></OptionButton>
+          <OptionButton linkTo="../play?version=mathematics" name="Mathematics" id="19"></OptionButton>
         </div>
       </div>
-    </div>
+    </div>  
   );
 }
 
