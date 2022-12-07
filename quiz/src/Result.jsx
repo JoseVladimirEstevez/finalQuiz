@@ -1,14 +1,15 @@
 import React from "react";
-import { useRef } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { scores, token } from "./constants";
 
 
-function result() {
-/*
+function Result() {
+
   const random = Math.round(Math.random * 10);
-  const name = useRef(null);
-  console.log('name: ', name.current.value);
+  const [name, setName] = useState("");
+  console.log('name: ', name);
 
   async function SaveName(){
     const options = {
@@ -17,14 +18,19 @@ function result() {
         "Authorization": token
       },
       body: { "score": random,
-      "name": name.current.value,
+      "name": "MUNIR",
       "categoryId": 24,
       "categoryName": "Theory" }
     }
 
     const response = await fetch(scores, options)
     console.log('response.status: ', response.status);
-  }*/
+  }
+
+  useEffect(() =>{
+SaveName()
+  },[])
+
 
   return (
     <div
@@ -40,12 +46,13 @@ function result() {
               <h3>Name</h3>
             </div>
             <div className="col">
-              <input type="text" id="Username"/>
+              <input onChange={event => setName(event.target.value)}
+ type="text" id="Username"/>
             </div>
-            <div className="col">
+            <div  className="col">
               <Link to="../leaderboard">
-                <button type="button" className="btn btn-lg btn-secondary" /*{onClick={SaveName()}}*/ >
-                  Save score to Leaderboard{" "}
+                <button type="button" className="btn btn-lg btn-secondary" onClick={()=> SaveName} >
+                  Save score to Leaderboard 
                 </button>
               </Link>
             </div>
@@ -64,4 +71,4 @@ function result() {
   );
 }
 
-export default result;
+export default Result;

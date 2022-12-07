@@ -12,7 +12,6 @@ function selectCategory() {
 
 
 
-
   return (
     <div>
       <Link to="/">
@@ -28,12 +27,12 @@ function selectCategory() {
         </div>
 
         <div className="row">
-          <OptionButton linkTo="../play?version=history" name="History" id="23"></OptionButton>
-          <OptionButton linkTo="../play?version=entertainement" name="Entertainement: Video-Games" id="15"></OptionButton>
+          <OptionButton linkTo="../play?categoryId=23" name="History"   ></OptionButton>  
+           <OptionButton linkTo="../play?categoryId=15" name="Entertainement: Video-Games" ></OptionButton>
         </div>
         <div className="row">
-          <OptionButton linkTo="../play?version=mythology" name="Mythology" id="20"></OptionButton>
-          <OptionButton linkTo="../play?version=mathematics" name="Mathematics" id="19"></OptionButton>
+          <OptionButton linkTo="../play?categoryId=20" name="Mythology" ></OptionButton>
+          <OptionButton linkTo="../play?categoryId=19" name="Mathematics"  ></OptionButton>
         </div>
       </div>
     </div>  

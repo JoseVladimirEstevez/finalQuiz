@@ -4,6 +4,11 @@ import { Link, ScrollRestoration } from "react-router-dom";
 import { token, top10route } from "./constants";
 
 function Leaderboard() {
+
+  
+
+  
+
   const [scores, setScores] = useState([]);
   
   const top10scores = [];
