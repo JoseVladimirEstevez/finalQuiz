@@ -1,7 +1,31 @@
 import React from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { scores, token } from "./constants";
+
 
 function result() {
+
+  const random = Math.round(Math.random * 10);
+  const name = useRef(null);
+  console.log('name: ', name.current.value);
+
+  async function SaveName(){
+    const options = {
+      method:"POST",
+      headers: {
+        "Authorization": token
+      },
+      body: { "score": random,
+      "name": name.current.value,
+      "categoryId": 24,
+      "categoryName": "Theory" }
+    }
+
+    const response = await fetch(scores, options)
+    console.log('response.status: ', response.status);
+  }
+
   return (
     <div
       style={{ minHeight: "100vh" }}
@@ -16,11 +40,11 @@ function result() {
               <h3>Name</h3>
             </div>
             <div className="col">
-              <input type="text" id="Username" />
+              <input type="text" id="Username"/>
             </div>
             <div className="col">
               <Link to="../leaderboard">
-                <button type="button" className="btn btn-lg btn-secondary">
+                <button type="button" className="btn btn-lg btn-secondary" onClick={SaveName()} >
                   Save score to Leaderboard{" "}
                 </button>
               </Link>
