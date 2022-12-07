@@ -5,10 +5,8 @@ import { scores, token } from "./constants";
 
 
 function result() {
-/*
+
   const random = Math.round(Math.random * 10);
-  const name = useRef(null);
-  console.log('name: ', name.current.value);
 
   async function SaveName(){
     const options = {
@@ -17,14 +15,14 @@ function result() {
         "Authorization": token
       },
       body: { "score": random,
-      "name": name.current.value,
+      "name": "adfas",
       "categoryId": 24,
       "categoryName": "Theory" }
     }
 
     const response = await fetch(scores, options)
     console.log('response.status: ', response.status);
-  }*/
+  }
 
   return (
     <div

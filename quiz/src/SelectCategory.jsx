@@ -6,13 +6,6 @@ import { useEffect } from "react";
 
 function selectCategory() {
 
-
-
-
-
-
-
-
   return (
     <div>
       <Link to="/">
