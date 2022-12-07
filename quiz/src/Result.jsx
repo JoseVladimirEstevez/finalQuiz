@@ -5,7 +5,7 @@ import { scores, token } from "./constants";
 
 
 function result() {
-
+/*
   const random = Math.round(Math.random * 10);
   const name = useRef(null);
   console.log('name: ', name.current.value);
@@ -24,7 +24,7 @@ function result() {
 
     const response = await fetch(scores, options)
     console.log('response.status: ', response.status);
-  }
+  }*/
 
   return (
     <div
@@ -44,7 +44,7 @@ function result() {
             </div>
             <div className="col">
               <Link to="../leaderboard">
-                <button type="button" className="btn btn-lg btn-secondary" onClick={SaveName()} >
+                <button type="button" className="btn btn-lg btn-secondary" /*{onClick={SaveName()}}*/ >
                   Save score to Leaderboard{" "}
                 </button>
               </Link>
