@@ -4,21 +4,27 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { scores, token } from "./constants";
 
+import { useSearchParams } from 'react-router-dom';
+
+
 
 function Result(props) {
+  const [query, setQuery] = useSearchParams();
+  const CategoryId = parseInt(query.get("categoryId"),10);
+  const categoryName =  localStorage.getItem("CategoryName");
 
-  
+  console.log('CategoryName: ', categoryName);
+  console.log('CategoryId: ', CategoryId);
   const score2 = props.score;
-  const random = Math.round(Math.random() * 10);
   const [name, setName] = useState("");
-  console.log('name: ', name);
 
-const navigate =  useNavigate();
+
+  const navigate =  useNavigate();
   const data = {
     "score": score2,
     "name": name,
-    "categoryId": 24,
-    "categoryName": "Theory"
+    "categoryId": CategoryId,
+    "categoryName": categoryName
   }
 
   async function SaveName(){

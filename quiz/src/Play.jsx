@@ -25,8 +25,8 @@ function Play() {
         const categoryName =  localStorage.getItem("CategoryName");
 
   
-        console.log('CategoryName: ', categoryName);
-        console.log('CategoryId: ', CategoryId);
+       // console.log('CategoryName: ', categoryName);
+        //console.log('CategoryId: ', CategoryId);
 
 
 
@@ -35,7 +35,7 @@ function Play() {
             return
         }
 
-        const url = `${openTDhost}?amount=${numberOfQuestions}&category=${selectedCategory.id}&difficulty=easy`
+        const url = `${openTDhost}?amount=${numberOfQuestions}&category=${selectedCategory.id}&difficulty=hard`
 
         setIsLoading(true);
 
