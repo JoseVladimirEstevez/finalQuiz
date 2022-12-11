@@ -5,15 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { scores, token } from "./constants";
 
 
-function Result() {
+function Result(props) {
 
+  
+  const score2 = props.score;
   const random = Math.round(Math.random() * 10);
   const [name, setName] = useState("");
   console.log('name: ', name);
 
 const navigate =  useNavigate();
   const data = {
-    "score": random,
+    "score": score2,
     "name": name,
     "categoryId": 24,
     "categoryName": "Theory"
@@ -44,7 +46,7 @@ const navigate =  useNavigate();
     >
       <div>
         <h1 className="p-4">Completed!</h1>
-        <h3 className="m-4 pb-5">Your score is X / 10</h3>
+        <h3 className="m-4 pb-5">Your score is {props.score} / 10</h3>
         <div className="container">
           <div className="row align-items-center">
             <div className="col justify-content-end d-flex">
