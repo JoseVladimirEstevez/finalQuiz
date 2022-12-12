@@ -1,50 +1,47 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Row from "./components/Row";
 import { Link, ScrollRestoration } from "react-router-dom";
 import { token, top10route } from "./constants";
 
 function Leaderboard() {
-
-  
-
-  
-
   const [scores, setScores] = useState([]);
-  
-  const top10scores = [];
 
   useEffect(() => {
     //called upon component mount
-    fetchScores()
-  }, [])
+    fetchScores();
+  }, []);
 
-  async function fetchScores(){
+  async function fetchScores() {
+    const top10scores = [];
+
     const options = {
-      method:"GET",
+      method: "GET",
       headers: {
-        "Authorization": token
-      }
-    }
+        Authorization: token,
+      },
+    };
 
-    const response = await fetch(top10route, options)
-    console.log('response.status: ', response.status);
+    const response = await fetch(top10route, options);
+    console.log("response.status: ", response.status);
     const data = await response.json();
-    console.log('data: ', data);
+    console.log("data: ", data);
 
     //setScores(data);
 
     for (let i = 0; i < 10; i++) {
       if (data[i]) {
-        top10scores.push({name: data[i].name, categoryName: data[i].categoryName, score: data[i].score});
-        console.log('top10scores: ', top10scores);
+        top10scores.push({
+          name: data[i].name,
+          categoryName: data[i].categoryName,
+          score: data[i].score,
+        });
+        console.log("top10scores: ", top10scores);
       } else {
         top10scores.push({ name: " ", categoryName: " ", score: " " });
       }
     }
-    setScores(top10scores)
+    setScores(top10scores);
   }
-
-  
 
   return (
     <div>

@@ -16,7 +16,7 @@ function App() {
             {" "}
             <button
               type="button"
-              className="px-5 py-3 btn btn-lg btn-secondary"
+              className="px-5 p-3 btn btn-lg btn-secondary rounded-pill"
             >
               Play{" "}
             </button>
