@@ -1,22 +1,17 @@
 import React from "react";
-
 import OptionButton from "./components/OptionButton";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 function selectCategory() {
-
-
-
-
-
-
-
   return (
     <div>
       <Link to="/">
-        {" "}
-        <button className="m-3"> &lt; = Back</button>{" "}
+        <button
+          className="btn btn-secondary m-3 rounded-pill p-3 px-4 text-center"
+          type="button"
+        >
+          &lt; = Back
+        </button>
       </Link>
       <div className="container-flex">
         <div className="d-flex p-3 text-center  justify-content-center align-items-center ">
@@ -27,15 +22,27 @@ function selectCategory() {
         </div>
 
         <div className="row">
-          <OptionButton linkTo="../play?categoryId=23" name="History"   ></OptionButton>  
-           <OptionButton linkTo="../play?categoryId=15" name="Entertainement: Video-Games" ></OptionButton>
+          <OptionButton
+            linkTo="../play?categoryId=23"
+            name="History"
+          ></OptionButton>
+          <OptionButton
+            linkTo="../play?categoryId=15"
+            name="Entertainement: Video-Games"
+          ></OptionButton>
         </div>
         <div className="row">
-          <OptionButton linkTo="../play?categoryId=20" name="Mythology" ></OptionButton>
-          <OptionButton linkTo="../play?categoryId=19" name="Mathematics"  ></OptionButton>
+          <OptionButton
+            linkTo="../play?categoryId=20"
+            name="Mythology"
+          ></OptionButton>
+          <OptionButton
+            linkTo="../play?categoryId=19"
+            name="Mathematics"
+          ></OptionButton>
         </div>
       </div>
-    </div>  
+    </div>
   );
 }
 

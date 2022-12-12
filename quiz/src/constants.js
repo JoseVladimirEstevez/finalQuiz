@@ -5,5 +5,4 @@ export const scores = "https://quiz-leaderboard-58cf6.nn.r.appspot.com/scores";
 
 export const openTDhost = "https://opentdb.com/api.php";
 
-export const numberOfQuestions= 10;
-
+export const numberOfQuestions = 10;
