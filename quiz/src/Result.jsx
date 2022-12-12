@@ -1,49 +1,36 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { scores, token } from "./constants";
 
-import { useSearchParams } from 'react-router-dom';
-
-
-
 function Result(props) {
-  const [query, setQuery] = useSearchParams();
-  const CategoryId = parseInt(query.get("categoryId"),10);
-  const categoryName =  localStorage.getItem("CategoryName");
-
-  console.log('CategoryName: ', categoryName);
-  console.log('CategoryId: ', CategoryId);
+  const Category = props.category;
   const score2 = props.score;
   const [name, setName] = useState("");
 
-
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
   const data = {
-    "score": score2,
-    "name": name,
-    "categoryId": CategoryId,
-    "categoryName": categoryName
-  }
+    score: score2,
+    name: Category.name,
+    categoryId: parseInt(Category.id),
+    categoryName: Category.name,
+  };
 
-  async function SaveName(){
+  async function SaveName() {
     const options = {
-      method:"POST",
+      method: "POST",
       headers: {
-        "Authorization": token,
-        'Content-type': 'application/json'
+        Authorization: token,
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(data)
-    }
+      body: JSON.stringify(data),
+    };
 
-    const response = await fetch(scores, options)
-    console.log('response: ', response);
-    
-    navigate("../leaderboard")
+    const response = await fetch(scores, options);
+    console.log("response: ", response);
+
+    navigate("../leaderboard");
   }
-
-
 
   return (
     <div
@@ -59,22 +46,28 @@ function Result(props) {
               <h3>Name</h3>
             </div>
             <div className="col">
-              <input onChange={event => setName(event.target.value)}
- type="text" id="Username"/>
+              <input
+                onChange={(event) => setName(event.target.value)}
+                type="text"
+                id="Username"
+              />
             </div>
-            <div  className="col">
-              
-                <button type="button" className="btn btn-lg btn-secondary" onClick={()=> SaveName()} >
-                  Save score to Leaderboard 
-                </button>
-              
+            <div className="col">
+              <button
+                type="button"
+                className="btn btn-lg btn-secondary rounded-pill p-3 px-4"
+                onClick={() => SaveName()}
+                disabled={!name.trim()}
+              >
+                Save score to Leaderboard
+              </button>
             </div>
           </div>
         </div>
         <Link to="../selectCategory">
           <button
             type="button"
-            className="px-5 py-3 mt-5 btn btn-lg btn-secondary"
+            className="px-4 p-3 mt-5 btn btn-lg btn-secondary rounded-pill"
           >
             Replay
           </button>
