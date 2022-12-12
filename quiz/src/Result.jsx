@@ -11,7 +11,7 @@ function Result(props) {
   const navigate = useNavigate();
   const data = {
     score: score2,
-    name: Category.name,
+    name: name,
     categoryId: parseInt(Category.id),
     categoryName: Category.name,
   };
@@ -27,7 +27,6 @@ function Result(props) {
     };
 
     const response = await fetch(scores, options);
-    console.log("response: ", response);
 
     navigate("../leaderboard");
   }

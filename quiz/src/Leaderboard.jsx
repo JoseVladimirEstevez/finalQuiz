@@ -22,9 +22,7 @@ function Leaderboard() {
     };
 
     const response = await fetch(top10route, options);
-    console.log("response.status: ", response.status);
     const data = await response.json();
-    console.log("data: ", data);
 
     //setScores(data);
 
@@ -35,7 +33,6 @@ function Leaderboard() {
           categoryName: data[i].categoryName,
           score: data[i].score,
         });
-        console.log("top10scores: ", top10scores);
       } else {
         top10scores.push({ name: " ", categoryName: " ", score: " " });
       }
@@ -54,7 +51,7 @@ function Leaderboard() {
             <Link to="../selectCategory">
               <button
                 type="button"
-                className="btn btn-lg btn-secondary p-3 px-5 position-absolute top-0 end-0 m-5"
+                className="btn btn-lg btn-secondary p-3 px-5 position-absolute top-0 end-0 m-5 rounded-pill"
               >
                 Replay
               </button>
