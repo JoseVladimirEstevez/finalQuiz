@@ -11,7 +11,7 @@ function App() {
         <div>
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
-            to="/selectCategory"
+            to="/multiplayer/choice"
           >
             {" "}
             <button

@@ -6,6 +6,8 @@ import Play from "./Play";
 import Leaderboard from "./Leaderboard";
 import SelectCategory from "./SelectCategory";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Multiplayer from "./Multiplayer";
+import MultiplayerChoice from "./MultiplayerChoice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,6 +17,9 @@ root.render(
       <Route path="/selectCategory" element={<SelectCategory />}></Route>
       <Route path="/play" element={<Play />}></Route>
       <Route path="/leaderboard" element={<Leaderboard />}></Route>
+      <Route path='multiplayer' element={<Multiplayer/>}>
+          <Route path='choice' element={<MultiplayerChoice/>}/>
+      </Route>
     </Routes>
   </BrowserRouter>
 );
