@@ -25,7 +25,7 @@ function MultiplayerChoice() {
         <div className ="m-5">
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
-            to="/multiplayer/join"
+            to="/multiplayer/joinQuiz"
           >
             <button
               type="button"
