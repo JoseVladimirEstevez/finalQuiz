@@ -12,14 +12,17 @@ function Play() {
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedDifficulty, setSelectedDifficulty] = useState();
   const [query, setQuery] = useSearchParams();
 
   const numberOfQuestions = 10;
 
   useEffect(() => {
     const categoryName = localStorage.getItem("CategoryName");
-    if (!selectedCategory) {
+    const difficulty = localStorage.getItem("Difficulty");
+    if (!selectedCategory || !selectedDifficulty) {
       setSelectedCategory({ id: query.get("categoryId"), name: categoryName });
+      setSelectedDifficulty({ id: query.get("difficulty"), name: difficulty });
       return;
     }
 
