@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function JoinQuiz() {
   return (
@@ -22,7 +23,12 @@ function JoinQuiz() {
         </div>
         <div className="row m-5">
           <div className="col">
+          <Link
+            style={{ color: "inherit", textDecoration: "none" }}
+            to="/multiplayer/waitingRoomStudent"
+          >
             <button className='px-5 p-3 m-2 btn btn-lg btn-secondary rounded-pill'>Enter Room</button>
+          </Link>
           </div>
         </div>
       </div>
