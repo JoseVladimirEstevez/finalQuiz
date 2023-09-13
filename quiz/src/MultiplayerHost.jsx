@@ -112,9 +112,7 @@ function MultiplayerHost() {
                                 }
                             }
                             to={
-                                `/multiplayer/play?category=${
-                                    formData.category
-                                }`
+                                `/multiplayer/queue`
                         }>
                             <button type="submit" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill">
                                 Create Room
@@ -128,7 +126,7 @@ function MultiplayerHost() {
                                     textDecoration: "none"
                                 }
                             }
-                            to="/multiplayer/choice">
+                            to="/multiplayer">
                             <button type="button" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill">
                                 Go Back
                             </button>
