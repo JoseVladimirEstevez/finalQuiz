@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function HostQueueing() {
+
+const [code, getCode] = useState("");
+
+
+
+
+
   return (
     <div
       style={{ minHeight: "100vh" }}
@@ -33,7 +40,7 @@ function HostQueueing() {
               color: "inherit",
               textDecoration: "none",
             }}
-            to="/multiplayer"
+            to="/multiplayer/host"
           >
             <button
               type="button"

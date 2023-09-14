@@ -2,16 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import Play from "./Play";
-import Leaderboard from "./Leaderboard";
+import Play from "./components/Play";
+import Leaderboard from "./components/Leaderboard";
 import SelectCategory from "./SelectCategory";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Multiplayer from "./Multiplayer";
-import MultiplayerChoice from "./MultiplayerChoice";
-import JoinQuiz from "./JoinQuiz";
-import MultiplayerHost from "./MultiplayerHost";
-import HostQueueing from "./HostQueueing";
-import WaitingRoomStudent from "./WaitingRoomStudent";
+import Multiplayer from "./components/Multiplayer";
+import MultiplayerChoice from "./components/MultiplayerChoice";
+import JoinQuiz from "./components/player/JoinQuiz";
+import MultiplayerHost from "./components/host/MultiplayerHost";
+import HostQueueing from "./components/host/HostQueueing";
+import WaitingRoomStudent from "./components/player/WaitingRoomStudent";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

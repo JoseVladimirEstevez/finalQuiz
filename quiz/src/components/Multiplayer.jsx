@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import {io} from 'socket.io-client'
-import { SocketContext } from './data/socketContext';
+import { SocketContext } from '../data/socketContext';
 
 const SERVER_HOST = "http://localhost:5000";
 function Multiplayer() {

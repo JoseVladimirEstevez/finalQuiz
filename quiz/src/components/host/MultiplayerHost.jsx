@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {SocketContext} from "./data/socketContext";
+import {SocketContext} from "../../data/socketContext";
 import {useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
 

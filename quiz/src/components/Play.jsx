@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Question from "./Question";
-import Spinner from "./Spinner";
-import Result from "./Result";
-import { openTDhost } from "./constants";
+import Spinner from "../Spinner";
+import Result from "../Result";
+import { openTDhost } from "../constants";
 import { useSearchParams, Link } from "react-router-dom";
 
 function Play() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Row from "./components/Row";
+import Row from "./Row";
 import { Link, ScrollRestoration } from "react-router-dom";
-import { token, top10route } from "./constants";
+import { token, top10route } from "../constants";
 
 function Leaderboard() {
   const [scores, setScores] = useState([]);
