@@ -4,41 +4,41 @@ import { Link, ScrollRestoration } from "react-router-dom";
 import { token, top10route } from "../constants";
 
 function Leaderboard() {
-  const [scores, setScores] = useState([]);
+  // const [scores, setScores] = useState([]);
 
-  useEffect(() => {
-    //called upon component mount
-    fetchScores();
-  }, []);
+  // useEffect(() => {
+  //   //called upon component mount
+  //   fetchScores();
+  // }, []);
 
-  async function fetchScores() {
-    const top10scores = [];
+  // async function fetchScores() {
+  //   const top10scores = [];
 
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    };
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: token,
+  //     },
+  //   };
 
-    const response = await fetch(top10route, options);
-    const data = await response.json();
+  //   const response = await fetch(top10route, options);
+  //   const data = await response.json();
 
-    //setScores(data);
+  //   //setScores(data);
 
-    for (let i = 0; i < 10; i++) {
-      if (data[i]) {
-        top10scores.push({
-          name: data[i].name,
-          categoryName: data[i].categoryName,
-          score: data[i].score,
-        });
-      } else {
-        top10scores.push({ name: " ", categoryName: " ", score: " " });
-      }
-    }
-    setScores(top10scores);
-  }
+  //   for (let i = 0; i < 10; i++) {
+  //     if (data[i]) {
+  //       top10scores.push({
+  //         name: data[i].name,
+  //         categoryName: data[i].categoryName,
+  //         score: data[i].score,
+  //       });
+  //     } else {
+  //       top10scores.push({ name: " ", categoryName: " ", score: " " });
+  //     }
+  //   }
+  //   setScores(top10scores);
+  //}
 
   return (
     <div>
@@ -68,7 +68,7 @@ function Leaderboard() {
               </tr>
             </thead>
             <tbody>
-              {scores.map((item, index) => {
+              {/* {scores.map((item, index) => {
                 return (
                   <Row
                     name={item.name}
@@ -77,7 +77,7 @@ function Leaderboard() {
                     key={index}
                   ></Row>
                 );
-              })}
+              })} */}
             </tbody>
           </table>
         </div>
