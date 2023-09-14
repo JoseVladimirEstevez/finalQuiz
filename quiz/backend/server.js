@@ -56,5 +56,9 @@ io.on('connection', (socket) => {
         socket.emit('displayName', data)
     } )
 
+    socket.on("quizInfo", data => {
+        console.log('quizInfo', data)
+    })
+
 
 })

@@ -15,12 +15,16 @@ function MultiplayerHost() {
             ...formData,
             [name]: value
         });
+
+        //console.log(formData);
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+       //e.preventDefault();
         // Send formData to server or perform any necessary action
+        socket.emit("quizInfo", formData)
         console.log(formData);
+        navigate("/multiplayer/queue")
     };
 
     useEffect(() => {
@@ -38,7 +42,7 @@ function MultiplayerHost() {
             }
             className="d-flex flex-column p-5 text-center justify-content-center align-items-center">
             <h1>Host a Room</h1>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="m-2">
                     <label className="m-3 ">
                         Category:
@@ -105,7 +109,7 @@ function MultiplayerHost() {
                 </div>
                 <div className="d-flex justify-content-center">
                     <div className="m-2">
-                        <Link style={
+                        <div style={
                                 {
                                     color: "inherit",
                                     textDecoration: "none"
@@ -114,10 +118,10 @@ function MultiplayerHost() {
                             to={
                                 `/multiplayer/queue`
                         }>
-                            <button type="submit" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill">
+                            <button type="submit" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill" onClick={() => handleSubmit()}>
                                 Create Room
                             </button>
-                        </Link>
+                        </div>
                     </div>
                     <div className="m-2">
                         <Link style={
