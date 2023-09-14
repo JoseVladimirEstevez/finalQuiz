@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function JoinQuiz() {
   return (
     <div>
-      <div className="container m-5 text-center">
+      <div className="container text-center">
         <div className="row m-5">
           <h1 className='text-center display-1'>Kahoot!</h1>
         </div>
