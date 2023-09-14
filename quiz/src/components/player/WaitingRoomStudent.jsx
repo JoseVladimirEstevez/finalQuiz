@@ -5,10 +5,12 @@ function WaitingRoomStudent() {
   return (
     <div>
       <div className="col d-md-flex justify-content-md-end">
-        <Link style={{ color: "inherit", textDecoration: "none" }}
-            to="/multiplayer/choice">
-          <button className='px-3 p-3 m-2 btn btn-lg btn-secondary rounded-pill'>Main menu</button>
-        </Link>
+        <Link style={{color: "inherit",textDecoration: "none"}}
+            to="/multiplayer/joinQuiz">
+              <button type="button" className="px-5 p-3 m-3 btn btn-lg btn-secondary rounded-pill">
+                  Go Back
+              </button>
+          </Link>
       </div>
       <div className="container m-5 text-center">
         <div className="row m-5">
