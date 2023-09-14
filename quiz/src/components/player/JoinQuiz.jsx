@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {SocketContext} from "../../data/socketContext";
+import {useNavigate} from "react-router-dom";
+import { useContext } from "react";
 
 function JoinQuiz() {
+  const socket = useContext(SocketContext);
   const [playerName, setPlayerName] = useState(""); // Define the playerName state
   const [code, setCode] = useState("")
 
   const handleNameChange = (e) => {
     setPlayerName(e.target.value); // Update the playerName state when input changes
+   
   };
   
   const handleCodeChange = (e) => {
     setCode(e.target.value); // Update the playerName state when input changes
+    setTimeout(() => {
+      
+      
+    },1000)
   };
 
   return (
@@ -53,6 +62,7 @@ function JoinQuiz() {
               <button
                 type="submit"
                 className="px-2 py-1 btn btn-lg btn-secondary rounded-pill"
+                onClick={()=>socket.emit("playerName", playerName)}
               >
                 Join Room
               </button>

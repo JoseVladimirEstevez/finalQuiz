@@ -6,11 +6,14 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+
 const io = socketIo(server, {
     cors: {
         origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
     }
 });
+const dataBase = {}
+
 
 // Set up your other Express middleware and routes here
 app.get('/', (req, res) => {
@@ -42,4 +45,16 @@ io.on('connection', (socket) => {
         console.log('newRoom', result)
         socket.emit('newRoom', result)
     })
+
+    socket.on("playerName", data => {
+        console.log('playerName', data)
+        
+        
+        dataBase[data] = 0
+       
+        console.log(dataBase)
+        socket.emit('displayName', data)
+    } )
+
+
 })
