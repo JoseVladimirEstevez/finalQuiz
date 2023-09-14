@@ -1,11 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {SocketContext} from "../../data/socketContext";
 
 function HostQueueing() {
 
-const [code, getCode] = useState("");
+  
+  const socket = useContext(SocketContext)
+  const navigate = useNavigate();
+  const [code, setCode] = useState("");
+  
+useEffect(() => {
+  if (socket) {
+    socket.emit('hosting', { host: "Started" })
+  } else {
+    navigate('/multiplayer')
+    console.log('No socket found')
+  }
+}, [])
 
 
+socket.on('newRoom',  data => {
+  setCode(data)
+})
 
 
 
@@ -15,7 +35,7 @@ const [code, getCode] = useState("");
       className="d-flex flex-column p-5 text-center justify-content-center align-items-center"
     >
       <h1 className="m-3">You are queueing a Quiz</h1>
-      <h2  className="m-2">Room number: 123</h2>
+      <h2  className="m-2">Room number: {code}</h2>
       <h3  className="m-1">Number of players = 123</h3>
       <div className="d-flex justify-content-center">
         <div className="m-2">

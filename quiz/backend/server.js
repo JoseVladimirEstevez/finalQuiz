@@ -3,6 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
 
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -28,5 +29,17 @@ io.on('connection', (socket) => {
     
     socket.on('reach10', data => {
         console.log('data', data)
+    })
+
+
+    socket.on('hosting', data => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        let result = '';
+        const charactersLength = characters.length;
+        for (let i = 0; i < 5; i++) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        console.log('newRoom', result)
+        socket.emit('newRoom', result)
     })
 })

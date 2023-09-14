@@ -126,7 +126,7 @@ function MultiplayerHost() {
                                     textDecoration: "none"
                                 }
                             }
-                            to="/multiplayer">
+                            to="/multiplayer/choice">
                             <button type="button" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill">
                                 Go Back
                             </button>
