@@ -11,11 +11,13 @@ function WaitingRoomStudent() {
   const navigate = useNavigate();
   useEffect(() => {
     if (socket) {
-      socket.emit("hosting", { host: "Started" });
+      
 
       socket.on("displayName", (data) => {
         setUserName(data);
       });
+
+    
     } else {
       navigate("/multiplayer");
       console.log("No socket found");

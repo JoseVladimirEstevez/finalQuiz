@@ -10,6 +10,7 @@ function HostQueueing() {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
   const [code, setCode] = useState("");
+  const [numberOfPlayers, setNumberOfPlayers] = useState("0");
 
   useEffect(() => {
     if (socket) {
@@ -17,7 +18,15 @@ function HostQueueing() {
 
       socket.on("newRoom", (data) => {
         setCode(data);
+        //console.log("123")
       });
+
+      socket.on("amountOfPlayers", (data) => {
+        console.log(data)
+        setNumberOfPlayers(data);
+        
+        console.log('numberOfPlayers: ', numberOfPlayers);
+      })
     } else {
       navigate("/multiplayer");
       console.log("No socket found");
@@ -31,7 +40,7 @@ function HostQueueing() {
     >
       <h1 className="m-3">You are queueing a Quiz</h1>
       <h2 className="m-2">Room number: {code}</h2>
-      <h3 className="m-1">Number of players = 123</h3>
+      <h3 className="m-1">Number of players = {numberOfPlayers}</h3>
       <div className="d-flex justify-content-center">
         <div className="m-2">
           <Link
@@ -39,7 +48,7 @@ function HostQueueing() {
               color: "inherit",
               textDecoration: "none",
             }}
-            to={`/multiplayer/queue`}
+            to={`/multiplayer/play`}
           >
             <button
               type="button"

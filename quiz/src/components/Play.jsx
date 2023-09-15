@@ -4,11 +4,17 @@ import Spinner from "../Spinner";
 import Result from "../Result";
 import { openTDhost } from "../constants";
 import { useSearchParams, Link } from "react-router-dom";
+import {SocketContext} from "../data/socketContext";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 function Play() {
+  const socket = useContext(SocketContext);
+  const navigate = useNavigate();
+
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
-  const [quizFinished, setQuizFinished] = useState(false);
+  const [quizFinished, setQuizFinished] = useState(false);c:\Users\adm1\Downloads\TransactionalWeb2\quiz with munir\finalQuiz\quiz\src\components\Play.jsx
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
@@ -18,8 +24,18 @@ function Play() {
   const numberOfQuestions = 10;
 
   useEffect(() => {
+
+
     const categoryName = localStorage.getItem("CategoryName");
-    const difficulty = localStorage.getItem("Difficulty");
+    //const difficulty = localStorage.getItem("Difficulty");
+    socket.on("quizInfo", (data) => {
+      	console.log(data)
+    }
+
+
+
+    )    
+/*
     if (!selectedCategory || !selectedDifficulty) {
       setSelectedCategory({ id: query.get("categoryId"), name: categoryName });
       setSelectedDifficulty({ id: query.get("difficulty"), name: difficulty });
@@ -44,7 +60,9 @@ function Play() {
       }, 500);
     }
 
-    fetchTrivia();
+    fetchTrivia();*/
+
+
   }, [selectedCategory, query]);
 
   function selectAnswerHandler(answer) {
