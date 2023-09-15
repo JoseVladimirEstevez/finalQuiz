@@ -14,7 +14,7 @@ function Play() {
 
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
-  const [quizFinished, setQuizFinished] = useState(false);c:\Users\adm1\Downloads\TransactionalWeb2\quiz with munir\finalQuiz\quiz\src\components\Play.jsx
+  const [quizFinished, setQuizFinished] = useState(false)
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
