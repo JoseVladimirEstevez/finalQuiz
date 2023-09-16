@@ -10,6 +10,10 @@ const server = http.createServer(app);
 
 const dataBase = {};
 let quizData = {}
+ let timePerQuestion = 0
+
+
+
 const io = socketIo(server, {
     cors: {
         origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
@@ -61,7 +65,8 @@ io.on("connection", (socket) => {
 
     socket.on("quizInfo", (data) => {
         const category = data.category;
-        const timePerQuestion = data.timePerQuestion;
+        timePerQuestion = data.timePerQuestion;
+        
         const numberOfQuestions = data.numberOfQuestions;
         const difficulty = data.difficulty;
         const url = `${openTDhost}?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulty}`;
@@ -76,7 +81,6 @@ io.on("connection", (socket) => {
             }
         }
         makeGetRequest();
-        // Define a route handler for the GET request
     });
 
     io.emit("quizInfo", quizData);

@@ -29,7 +29,10 @@ function Play() {
     const categoryName = localStorage.getItem("CategoryName");
     //const difficulty = localStorage.getItem("Difficulty");
     socket.on("quizInfo", (data) => {
-      	console.log(data)
+      setQuestions(data.results)
+      console.log('data.results: ', data.results);
+      	console.log("data",data)
+    
     }
 
 
@@ -63,7 +66,7 @@ function Play() {
     fetchTrivia();*/
 
 
-  }, [selectedCategory, query]);
+  }, []);
 
   function selectAnswerHandler(answer) {
     setIsLoading(true);
