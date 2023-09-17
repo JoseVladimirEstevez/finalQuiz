@@ -9,6 +9,7 @@ function WaitingRoomStudent() {
   const socket = useContext(SocketContext);
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
+  const [quizInfo, setQuizInfo] = useState({});
   useEffect(() => {
     if (socket) {
       
@@ -24,7 +25,10 @@ function WaitingRoomStudent() {
     }
   }, []);
 
-  
+  socket.on("getQuiz", (data) => {
+    localStorage.setItem("quizInfo", JSON.stringify(data));
+    navigate("/multiplayer/play")
+  })
   return (
     <div
       style={{ minHeight: "100vh" }}

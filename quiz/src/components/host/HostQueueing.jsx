@@ -31,6 +31,14 @@ function HostQueueing() {
       navigate("/multiplayer");
       console.log("No socket found");
     }
+
+
+    socket.on("getQuiz", (data) => {
+      localStorage.setItem("quizInfo", JSON.stringify(data));
+      navigate("/multiplayer/play")
+    })
+
+
   }, []);
 
   return (
@@ -43,20 +51,15 @@ function HostQueueing() {
       <h3 className="m-1">Number of players = {numberOfPlayers}</h3>
       <div className="d-flex justify-content-center">
         <div className="m-2">
-          <Link
-            style={{
-              color: "inherit",
-              textDecoration: "none",
-            }}
-            to={`/multiplayer/play`}
-          >
+          
             <button
               type="button"
               className="px-2 py-1 btn btn-lg btn-secondary rounded-pill"
+              onClick={()=>socket.emit("sendQuiz")}
             >
               Start the Quiz
             </button>
-          </Link>
+        
         </div>
         <div className="m-2">
           <Link

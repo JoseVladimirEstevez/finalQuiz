@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 const dataBase = {};
 let quizData = {}
- let timePerQuestion = 0
+let timePerQuestion = 0
 
 
 
@@ -75,16 +75,22 @@ io.on("connection", (socket) => {
             try {
                 const response = await axios.get(url);
                 quizData = response.data;
-                console.log(quizData);
+                console.log("🚀 ~ file: server.js:78 ~ makeGetRequest ~ quizData:", quizData)
+                //console.log(quizData);
             } catch (error) {
                 console.error(error);
             }
         }
         makeGetRequest();
+        
     });
+    
+    socket.on("sendQuiz", (data)=>{
+        
+        console.log("TEST")
+        io.emit("getQuiz", quizData);
 
-    io.emit("quizInfo", quizData);
-
+    })
 
 
 });

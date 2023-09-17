@@ -4,41 +4,39 @@ import Spinner from "../Spinner";
 import Result from "../Result";
 import { openTDhost } from "../constants";
 import { useSearchParams, Link } from "react-router-dom";
-import {SocketContext} from "../data/socketContext";
+import { SocketContext } from "../data/socketContext";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { useRef } from "react";
 
 function Play() {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
 
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
-  const [questions, setQuestions] = useState([]);
-  const [quizFinished, setQuizFinished] = useState(false)
+
+  const [quizFinished, setQuizFinished] = useState(false);
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedDifficulty, setSelectedDifficulty] = useState();
   const [query, setQuery] = useSearchParams();
 
+  const questions = useRef();
+
   const numberOfQuestions = 10;
 
   useEffect(() => {
+    // const categoryName = localStorage.getItem("CategoryName");
+    // const difficulty = localStorage.getItem("Difficulty");
+    const questionsTest = localStorage.getItem("quizInfo");
+    //console.log("🚀 ~ file: Play.jsx:31 ~ useEffect ~ questionsTest:", questionsTest)
+    const questionsJSONParse = JSON.parse(questionsTest);
+    //console.log("🚀 ~ file: Play.jsx:33 ~ useEffect ~ questionsJSONParse:", questionsJSONParse)
+    questions.current = questionsJSONParse;
+  }, []);
 
-
-    const categoryName = localStorage.getItem("CategoryName");
-    //const difficulty = localStorage.getItem("Difficulty");
-    socket.on("quizInfo", (data) => {
-      setQuestions(data.results)
-      console.log('data.results: ', data.results);
-      	console.log("data",data)
-    
-    }
-
-
-
-    )    
-/*
+  /*
     if (!selectedCategory || !selectedDifficulty) {
       setSelectedCategory({ id: query.get("categoryId"), name: categoryName });
       setSelectedDifficulty({ id: query.get("difficulty"), name: difficulty });
@@ -63,10 +61,10 @@ function Play() {
       }, 500);
     }
 
-    fetchTrivia();*/
-
+    fetchTrivia();
 
   }, []);
+*/
 
   function selectAnswerHandler(answer) {
     setIsLoading(true);
@@ -90,6 +88,7 @@ function Play() {
 
   return (
     <div>
+      {" "}
       {quizFinished === false ? (
         <div className="d-grid gap-2 d-md-flex justify-content-md-end">
           <Link to="/">
@@ -115,11 +114,12 @@ function Play() {
             <></>
           ) : (
             <>
+              {" "}
               {!quizFinished ? (
                 <div className="container">
                   <div className="row">
                     <div className="col-12 text-center h2">
-                      Question {activeQuestionIndex + 1}/{numberOfQuestions}
+                      Question {activeQuestionIndex + 1}/{numberOfQuestions}{" "}
                     </div>
                   </div>
                   <div className="row">
@@ -137,14 +137,15 @@ function Play() {
                 </div>
               ) : (
                 <>
+                  {" "}
                   {/* Score/result component */}
                   <div className="container text-center">
                     <Result score={score} category={selectedCategory} />
                   </div>
                 </>
-              )}
+              )}{" "}
             </>
-          )}
+          )}{" "}
         </div>
       </div>
     </div>
