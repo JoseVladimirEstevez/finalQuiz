@@ -14,26 +14,35 @@ function Play() {
   const navigate = useNavigate();
 
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
-
+    const [questions, setQuestions] = useState([]);
   const [quizFinished, setQuizFinished] = useState(false);
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedDifficulty, setSelectedDifficulty] = useState();
   const [query, setQuery] = useSearchParams();
-
-  const questions = useRef();
-
-  const numberOfQuestions = 10;
-
+  const [numberOfQuestions, setNumberOfQuestions] = useState(0);
+  
+  
   useEffect(() => {
-    // const categoryName = localStorage.getItem("CategoryName");
-    // const difficulty = localStorage.getItem("Difficulty");
     const questionsTest = localStorage.getItem("quizInfo");
-    //console.log("🚀 ~ file: Play.jsx:31 ~ useEffect ~ questionsTest:", questionsTest)
+    
     const questionsJSONParse = JSON.parse(questionsTest);
-    //console.log("🚀 ~ file: Play.jsx:33 ~ useEffect ~ questionsJSONParse:", questionsJSONParse)
-    questions.current = questionsJSONParse;
+    setQuestions(questionsJSONParse.results);
+    setNumberOfQuestions(questionsJSONParse.results.length);
+
+
+
+    if (socket) {
+      
+      
+
+      
+    } else {
+      navigate("/multiplayer");
+      console.log("No socket found");
+    }
+   
   }, []);
 
   /*
@@ -72,7 +81,7 @@ function Play() {
     if (answer.correct) {
       setScore((value) => value + 1); // increment score
     }
-
+    
     if (activeQuestionIndex === numberOfQuestions - 1) {
       // last question
       setQuizFinished(true);
@@ -81,6 +90,7 @@ function Play() {
       setActiveQuestionIndex((value) => value + 1);
     }
 
+    
     setTimeout(() => {
       setIsLoading(false);
     }, 200);
@@ -140,7 +150,7 @@ function Play() {
                   {" "}
                   {/* Score/result component */}
                   <div className="container text-center">
-                    <Result score={score} category={selectedCategory} />
+                    <Result score={score}  />
                   </div>
                 </>
               )}{" "}
