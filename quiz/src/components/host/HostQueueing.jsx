@@ -26,6 +26,7 @@ function HostQueueing() {
         setNumberOfPlayers(data);
         
         console.log('numberOfPlayers: ', numberOfPlayers);
+        
       })
     } else {
       navigate("/multiplayer");
@@ -34,7 +35,9 @@ function HostQueueing() {
 
 
     socket.on("getQuiz", (data) => {
+      localStorage.setItem("timer", data.timePerQuestion)
       localStorage.setItem("quizInfo", JSON.stringify(data));
+      console.log("🚀 ~ file: HostQueueing.jsx:39 ~ socket.on ~ data.timePerQuestion:", data)
       navigate("/multiplayer/play")
     })
 

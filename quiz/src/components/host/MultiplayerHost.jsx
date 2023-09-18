@@ -15,6 +15,7 @@ function MultiplayerHost() {
             ...formData,
             [name]: value
         });
+       
 
         //console.log(formData);
     };

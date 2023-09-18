@@ -28,6 +28,7 @@ function WaitingRoomStudent() {
 
   socket.on("getQuiz", (data) => {
     localStorage.setItem("quizInfo", JSON.stringify(data));
+    //localStorage.setItem("timer", data.timePerQuestion)
     navigate("/multiplayer/play")
   })
   return (

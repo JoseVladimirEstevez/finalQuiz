@@ -23,20 +23,39 @@ function Play() {
   const [query, setQuery] = useSearchParams();
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
   const [nameStudent, setNameStudent] = useState("");
+  const [timer, setTimer] = useState(0);
+
 
   useEffect(() => {
     const questionsTest = localStorage.getItem("quizInfo");
-
+    
     const questionsJSONParse = JSON.parse(questionsTest);
     setQuestions(questionsJSONParse.results);
     setNumberOfQuestions(questionsJSONParse.results.length);
     setNameStudent(localStorage.getItem("name"));
+    //setTimer(localStorage.getItem("timer"));
 
     if (socket) {
+
+
     } else {
       navigate("/multiplayer");
       console.log("No socket found");
     }
+
+
+  //   const interval = setInterval(() => {
+  //     setTimer((prev) => prev - 1); // Decrease timer every second
+  // }, 1000); // Run every second (1000 milliseconds)
+
+  // return () => {
+  //     clearInterval(interval); // Clean up the interval when the component is unmounted
+  // };
+
+
+
+
+
   }, []);
 
   function selectAnswerHandler(answer) {
@@ -51,6 +70,10 @@ function Play() {
     if (activeQuestionIndex === numberOfQuestions - 1) {
       // last question
       setQuizFinished(true);
+      socket.on("returnScore", (data) => {
+      localStorage.setItem("leaderBoard", data);
+      })
+  
     } else {
       // next question
       setActiveQuestionIndex((value) => value + 1);
@@ -60,6 +83,7 @@ function Play() {
       setIsLoading(false);
     }, 200);
   }
+
 
   return (
     <div>

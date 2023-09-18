@@ -2,8 +2,22 @@ import React, { useState, useEffect } from "react";
 import Row from "./Row";
 import { Link, ScrollRestoration } from "react-router-dom";
 import { token, top10route } from "../constants";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { SocketContext } from "../data/socketContext";
 
 function Leaderboard() {
+  const socket = useContext(SocketContext);
+  const navigate = useNavigate();
+
+  if (socket) {
+    
+
+  } else {
+    navigate("/multiplayer");
+    console.log("No socket found");
+  }
+
   // const [scores, setScores] = useState([]);
 
   // useEffect(() => {
