@@ -16,6 +16,7 @@ function WaitingRoomStudent() {
 
       socket.on("displayName", (data) => {
         setUserName(data);
+        
       });
 
     

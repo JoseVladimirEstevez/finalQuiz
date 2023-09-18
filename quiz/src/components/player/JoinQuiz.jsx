@@ -62,7 +62,7 @@ function JoinQuiz() {
               <button
                 type="submit"
                 className="px-2 py-1 btn btn-lg btn-secondary rounded-pill"
-                onClick={()=>socket.emit("playerName", playerName)}
+                onClick={()=>{socket.emit("playerName", playerName); localStorage.setItem("name", playerName)}}
               >
                 Join Room
               </button>

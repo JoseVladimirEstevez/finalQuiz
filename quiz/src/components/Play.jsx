@@ -14,7 +14,7 @@ function Play() {
   const navigate = useNavigate();
 
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [quizFinished, setQuizFinished] = useState(false);
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,58 +22,22 @@ function Play() {
   const [selectedDifficulty, setSelectedDifficulty] = useState();
   const [query, setQuery] = useSearchParams();
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
-  
-  
+  const [nameStudent, setNameStudent] = useState("");
+
   useEffect(() => {
     const questionsTest = localStorage.getItem("quizInfo");
-    
+
     const questionsJSONParse = JSON.parse(questionsTest);
     setQuestions(questionsJSONParse.results);
     setNumberOfQuestions(questionsJSONParse.results.length);
-
-
+    setNameStudent(localStorage.getItem("name"));
 
     if (socket) {
-      
-      
-
-      
     } else {
       navigate("/multiplayer");
       console.log("No socket found");
     }
-   
   }, []);
-
-  /*
-    if (!selectedCategory || !selectedDifficulty) {
-      setSelectedCategory({ id: query.get("categoryId"), name: categoryName });
-      setSelectedDifficulty({ id: query.get("difficulty"), name: difficulty });
-      return;
-    }
-
-    const url = `${openTDhost}?amount=${numberOfQuestions}&category=${selectedCategory.id}&difficulty=hard`;
-
-    setIsLoading(true);
-
-    async function fetchTrivia() {
-      const triviaResponse = await fetch(url);
-
-      const body = await triviaResponse.json();
-
-      if (body.results) {
-        setQuestions(body.results);
-      }
-
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-    }
-
-    fetchTrivia();
-
-  }, []);
-*/
 
   function selectAnswerHandler(answer) {
     setIsLoading(true);
@@ -81,7 +45,9 @@ function Play() {
     if (answer.correct) {
       setScore((value) => value + 1); // increment score
     }
-    
+    const studentScore = { name: nameStudent, score: score };
+
+    socket.emit("studentScore", studentScore);
     if (activeQuestionIndex === numberOfQuestions - 1) {
       // last question
       setQuizFinished(true);
@@ -90,7 +56,6 @@ function Play() {
       setActiveQuestionIndex((value) => value + 1);
     }
 
-    
     setTimeout(() => {
       setIsLoading(false);
     }, 200);
@@ -150,7 +115,7 @@ function Play() {
                   {" "}
                   {/* Score/result component */}
                   <div className="container text-center">
-                    <Result score={score}  />
+                    <Result score={score} />
                   </div>
                 </>
               )}{" "}

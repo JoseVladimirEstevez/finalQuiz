@@ -52,10 +52,10 @@ io.on("connection", (socket) => {
     });
 
     socket.on("playerName", (data) => {
-        console.log("playerName", data);
+       // console.log("playerName", data);
 
         dataBase[data] = 0;
-        console.log(dataBase);
+       // console.log(dataBase);
         socket.emit("displayName", data);
         io.emit("amountOfPlayers", Object.keys(dataBase).length);
     });
@@ -70,12 +70,12 @@ io.on("connection", (socket) => {
         const numberOfQuestions = data.numberOfQuestions;
         const difficulty = data.difficulty;
         const url = `${openTDhost}?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulty}`;
-
+        
         async function makeGetRequest() {
             try {
                 const response = await axios.get(url);
                 quizData = response.data;
-                console.log("🚀 ~ file: server.js:78 ~ makeGetRequest ~ quizData:", quizData)
+                //console.log("🚀 ~ file: server.js:78 ~ makeGetRequest ~ quizData:", quizData)
                 //console.log(quizData);
             } catch (error) {
                 console.error(error);
@@ -91,9 +91,15 @@ io.on("connection", (socket) => {
         io.emit("getQuiz", quizData);
 
     })
+    /*GET SCORE FROM EACH PLAYER*/
+    socket.on("studentScore", (data)=>{
+        const userName = data.name
+        dataBase[userName] = data.score
+        console.log("🚀 ~ file: server.js:97 ~ socket.on ~ data:", dataBase)
+    })
 
     /*SEND TIMING PER QUESTION*/
-    /*GET SCORE FROM EACH PLAYER*/
+   
     /*RETURN SCORE FOR LEADERBOARD*/
     /*DIFFERENTIATE TEACHER VIEW FROM STUDENTS*/
     /*CREATE A ROOM WITH THE CODE AND ADD IT TO THE SOCKET CONFIGURATION*/
