@@ -25,6 +25,8 @@ function JoinQuiz() {
   })
   const handleNameChange = (e) => {
     setPlayerName(e.target.value); // Update the playerName state when input changes
+    
+
    
   };
   
@@ -36,17 +38,18 @@ function JoinQuiz() {
     },1000)
   };
 function verifyRoomCode(){
-
+  
   const nameCode = { 
     name: playerName,
     code: code
   }
+  
  
 
     socket.emit("nameCode", nameCode); 
     socket.on("displayName", (data) => {
       
-      localStorage.setItem("name", nameCode.playerName)
+      localStorage.setItem("name", nameCode.name)
       navigate("/multiplayer/waitingRoomStudent")
       
     })

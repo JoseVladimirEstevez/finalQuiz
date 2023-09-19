@@ -8,7 +8,7 @@ const axios = require("axios");
 const app = express();
 const server = http.createServer(app);
 
-const dataBase = {};
+let dataBase = {};
 let quizData = {};
 let timePerQuestion = 0;
 let result = "";
@@ -32,12 +32,14 @@ server.listen(PORT, () => {
 });
 
 io.on("connection", (socket) => {
+
     console.log("socket: ", socket.id);
 
     socket.on("reach10", (data) => {
         console.log("data", data);
     });
     socket.on("hosting", (data) => {
+        result = "";
         const characters =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -110,8 +112,8 @@ io.on("connection", (socket) => {
     });
 
     /*RETURN SCORE FOR LEADERBOARD*/
-    io.to(result).emit("returnScore", dataBase);
+    io.emit("returnScore", dataBase);
 
     /*DIFFERENTIATE TEACHER VIEW FROM STUDENTS*/
-    /*CREATE A ROOM WITH THE CODE AND ADD IT TO THE SOCKET CONFIGURATION*/
+    
 });

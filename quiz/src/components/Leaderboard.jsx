@@ -7,16 +7,17 @@ import { useContext } from "react";
 import { SocketContext } from "../data/socketContext";
 
 function Leaderboard() {
+
+
+  const usersScore = { '123': 0, VLAD: 0, HHH: 0 }
+  console.log(usersScore['123'])
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
+useEffect(() => {
+  
 
-  if (socket) {
-    
 
-  } else {
-    navigate("/multiplayer");
-    console.log("No socket found");
-  }
+})
 
   // const [scores, setScores] = useState([]);
 
@@ -32,7 +33,7 @@ function Leaderboard() {
   //     method: "GET",
   //     headers: {
   //       Authorization: token,
-  //     },
+  //     },;
   //   };
 
   //   const response = await fetch(top10route, options);

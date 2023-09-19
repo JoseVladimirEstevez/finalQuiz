@@ -8,6 +8,7 @@ import { SocketContext } from "../data/socketContext";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { useRef } from "react";
+import Leaderboard from "./Leaderboard";
 
 function Play() {
   const socket = useContext(SocketContext);
@@ -37,22 +38,16 @@ function Play() {
 
     if (socket) {
 
+      socket.on("returnScore", (data) => {
+        console.log('data: ', data);
+      localStorage.setItem("leaderBoard", JSON.stringify(data));
+      })
+      
 
     } else {
       navigate("/multiplayer");
       console.log("No socket found");
     }
-
-
-  //   const interval = setInterval(() => {
-  //     setTimer((prev) => prev - 1); // Decrease timer every second
-  // }, 1000); // Run every second (1000 milliseconds)
-
-  // return () => {
-  //     clearInterval(interval); // Clean up the interval when the component is unmounted
-  // };
-
-
 
 
 
@@ -69,10 +64,8 @@ function Play() {
     socket.emit("studentScore", studentScore);
     if (activeQuestionIndex === numberOfQuestions - 1) {
       // last question
+    
       setQuizFinished(true);
-      socket.on("returnScore", (data) => {
-      localStorage.setItem("leaderBoard", data);
-      })
   
     } else {
       // next question
@@ -84,6 +77,14 @@ function Play() {
     }, 200);
   }
 
+
+  function storeScores(){
+
+    socket.on("returnScore", (data) => {
+      console.log(data)
+    })
+    navigate("/multiplayer/leaderboard")
+  }
 
   return (
     <div>
@@ -139,7 +140,7 @@ function Play() {
                   {" "}
                   {/* Score/result component */}
                   <div className="container text-center">
-                    <Result score={score} />
+                    <Leaderboard />
                   </div>
                 </>
               )}{" "}
