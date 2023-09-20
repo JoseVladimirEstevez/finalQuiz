@@ -12,13 +12,38 @@ function HostQueueing() {
   const [code, setCode] = useState("");
   const [numberOfPlayers, setNumberOfPlayers] = useState("0");
 
+  async function clickPlay() {
+    socket.emit("sendQuiz");
+    socket.emit("hostJoin");
+
+  
+    // Use a Promise to wait for the "hostJoin" event to be acknowledged by the server
+    const hostJoinAck = new Promise((resolve) => {
+      socket.on("hostJoinAck", () => {
+        resolve();
+      });
+    });
+  
+    await hostJoinAck; // Wait for the "hostJoin" event acknowledgment
+  
+    socket.on("getQuiz", (data) => {
+      localStorage.setItem("timer", data.timePerQuestion);
+      console.log('data.timePerQuestion: ', data.timePerQuestion);
+
+      localStorage.setItem("quizInfo", JSON.stringify(data));
+      console.log("🚀 ~ file: HostQueueing.jsx:39 ~ socket.on ~ data.timePerQuestion:", data);
+      navigate("/multiplayer/play");
+    });
+  }
+  
+
+
   useEffect(() => {
     if (socket) {
       socket.emit("hosting", { host: "Started" });
 
       socket.on("newRoom", (data) => {
         setCode(data);
-        //console.log("123")
       });
 
       socket.on("amountOfPlayers", (data) => {
@@ -32,15 +57,6 @@ function HostQueueing() {
       navigate("/multiplayer");
       console.log("No socket found");
     }
-
-
-    socket.on("getQuiz", (data) => {
-      localStorage.setItem("timer", data.timePerQuestion)
-      localStorage.setItem("quizInfo", JSON.stringify(data));
-      console.log("🚀 ~ file: HostQueueing.jsx:39 ~ socket.on ~ data.timePerQuestion:", data)
-      navigate("/multiplayer/play")
-    })
-
 
   }, []);
 
@@ -58,7 +74,7 @@ function HostQueueing() {
             <button
               type="button"
               className="px-2 py-1 btn btn-lg btn-secondary rounded-pill"
-              onClick={()=>socket.emit("sendQuiz")}
+              onClick={()=>clickPlay()}
             >
               Start the Quiz
             </button>
