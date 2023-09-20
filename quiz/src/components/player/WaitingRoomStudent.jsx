@@ -21,10 +21,10 @@ function WaitingRoomStudent() {
   }, []);
 
   socket.on("getQuiz", (data) => {
+    navigate("/multiplayer/play")
     console.log("quiz info: " + data);
     localStorage.setItem("quizInfo", JSON.stringify(data));
-    //localStorage.setItem("timer", data.timePerQuestion)
-    navigate("/multiplayer/play")
+    localStorage.setItem("time", JSON.stringify(data.timePerQuestion))
   })
   return (
     <div
