@@ -68,6 +68,14 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("hostJoin", () => {
+        console.log("`RESULT", result);
+        socket.join(result);
+        
+        // Emit an acknowledgment event
+        socket.emit("hostJoinAck");
+    });
+
     socket.on("quizInfo", (data) => {
         const category = data.category;
         timePerQuestion = data.timePerQuestion;
@@ -80,8 +88,6 @@ io.on("connection", (socket) => {
             try {
                 const response = await axios.get(url);
                 quizData = response.data;
-                //console.log("🚀 ~ file: server.js:78 ~ makeGetRequest ~ quizData:", quizData)
-                //console.log(quizData);
             } catch (error) {
                 console.error(error);
             }
@@ -90,11 +96,9 @@ io.on("connection", (socket) => {
     });
 
     socket.on("sendQuiz", (data) => {
-        console.log("TEST");
-        //console.log('timePerQuestion: ', timePerQuestion);
-        // io.emit("timePerQuestion", timePerQuestion);
         io.to(result).emit("getQuiz", quizData);
     });
+
     /*GET SCORE FROM EACH PLAYER*/
     socket.on("studentScore", (data) => {
         const userName = data.name;

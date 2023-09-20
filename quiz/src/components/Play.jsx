@@ -10,6 +10,8 @@ import { useContext } from "react";
 import { useRef } from "react";
 import Leaderboard from "./Leaderboard";
 
+let answerChosen = false;
+
 function Play() {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
@@ -24,8 +26,7 @@ function Play() {
   const [query, setQuery] = useSearchParams();
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
   const [nameStudent, setNameStudent] = useState("");
-  const [timer, setTimer] = useState(0);
-
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     const questionsTest = localStorage.getItem("quizInfo");
@@ -34,27 +35,22 @@ function Play() {
     setQuestions(questionsJSONParse.results);
     setNumberOfQuestions(questionsJSONParse.results.length);
     setNameStudent(localStorage.getItem("name"));
-    //setTimer(localStorage.getItem("timer"));
+    setTime(localStorage.getItem("timer"));
 
     if (socket) {
-
       socket.on("returnScore", (data) => {
         console.log('data: ', data);
       localStorage.setItem("leaderBoard", JSON.stringify(data));
       })
-      
-
     } else {
       navigate("/multiplayer");
       console.log("No socket found");
     }
-
-
-
   }, []);
 
   function selectAnswerHandler(answer) {
     setIsLoading(true);
+    console.log("right ans: " + questions[activeQuestionIndex].correct_answer)
 
     if (answer.correct) {
       setScore((value) => value + 1); // increment score
@@ -64,19 +60,21 @@ function Play() {
     socket.emit("studentScore", studentScore);
     if (activeQuestionIndex === numberOfQuestions - 1) {
       // last question
-    
       setQuizFinished(true);
-  
     } else {
       // next question
-      setActiveQuestionIndex((value) => value + 1);
+      answerChosen = true
+
+      setTimeout(() => {
+        setActiveQuestionIndex((value) => value + 1);
+        answerChosen = false;
+      }, time)
     }
 
     setTimeout(() => {
       setIsLoading(false);
     }, 200);
   }
-
 
   function storeScores(){
 
@@ -148,6 +146,21 @@ function Play() {
           )}{" "}
         </div>
       </div>
+      {answerChosen ? (
+      <div className="container rounded p-4 my-2"
+        style={{ backgroundColor: "#c0deff" }}>
+        <div className="row">
+          <div className="col-12 h2">
+            Correct answer: 
+            <button className="btn btn-secondary w-75 m-2 py-4 rounded-pill">
+              {/*{questions[activeQuestionIndex].correct_answer}*/}
+            </button>
+          </div>
+        </div>
+      </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
