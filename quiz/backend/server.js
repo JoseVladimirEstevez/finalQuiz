@@ -79,15 +79,17 @@ io.on("connection", (socket) => {
     socket.on("quizInfo", (data) => {
         const category = data.category;
         timePerQuestion = data.timePerQuestion;
-
         const numberOfQuestions = data.numberOfQuestions;
         const difficulty = data.difficulty;
+
         const url = `${openTDhost}?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulty}`;
 
         async function makeGetRequest() {
             try {
                 const response = await axios.get(url);
                 quizData = response.data;
+                quizData.timePerQuestion = timePerQuestion;
+                
             } catch (error) {
                 console.error(error);
             }
@@ -95,7 +97,7 @@ io.on("connection", (socket) => {
         makeGetRequest();
     });
 
-    socket.on("sendQuiz", (data) => {
+    socket.on("sendQuiz", () => {
         io.to(result).emit("getQuiz", quizData);
     });
 

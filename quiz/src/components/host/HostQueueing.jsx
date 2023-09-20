@@ -27,11 +27,10 @@ function HostQueueing() {
     await hostJoinAck; // Wait for the "hostJoin" event acknowledgment
   
     socket.on("getQuiz", (data) => {
-      localStorage.setItem("timer", data.timePerQuestion);
-      console.log('data.timePerQuestion: ', data.timePerQuestion);
+      localStorage.setItem("time", JSON.stringify(data.timePerQuestion));
+      //console.log('data.timePerQuestion: ', data.timePerQuestion);
 
       localStorage.setItem("quizInfo", JSON.stringify(data));
-      console.log("🚀 ~ file: HostQueueing.jsx:39 ~ socket.on ~ data.timePerQuestion:", data);
       navigate("/multiplayer/play");
     });
   }
