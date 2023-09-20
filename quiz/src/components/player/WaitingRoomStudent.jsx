@@ -9,24 +9,19 @@ function WaitingRoomStudent() {
   const socket = useContext(SocketContext);
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
-  const [quizInfo, setQuizInfo] = useState({});
+
+  
   useEffect(() => {
     if (socket) {
-      
-
-      socket.on("displayName", (data) => {
-        setUserName(data);
-        
-      });
-
-    
-    } else {
+      setUserName(localStorage.getItem("name"));
+    } else{
       navigate("/multiplayer");
       console.log("No socket found");
     }
   }, []);
 
   socket.on("getQuiz", (data) => {
+    console.log("quiz info: " + data);
     localStorage.setItem("quizInfo", JSON.stringify(data));
     //localStorage.setItem("timer", data.timePerQuestion)
     navigate("/multiplayer/play")

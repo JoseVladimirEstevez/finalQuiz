@@ -25,9 +25,6 @@ function JoinQuiz() {
   })
   const handleNameChange = (e) => {
     setPlayerName(e.target.value); // Update the playerName state when input changes
-    
-
-   
   };
   
   const handleCodeChange = (e) => {

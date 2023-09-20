@@ -15,16 +15,12 @@ function MultiplayerHost() {
             ...formData,
             [name]: value
         });
-       
-
-        //console.log(formData);
     };
 
     const handleSubmit = (e) => {
-       //e.preventDefault();
         // Send formData to server or perform any necessary action
         socket.emit("quizInfo", formData)
-        //console.log(formData);
+
         navigate("/multiplayer/queue")
     };
 
