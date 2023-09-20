@@ -63,12 +63,12 @@ useEffect(() => {
             <h1 className="position-absolute start-50">Top Scores</h1>
           </div>
           <div className="col">
-            <Link to="../selectCategory">
+            <Link to="/multiplayer/choice">
               <button
                 type="button"
                 className="btn btn-lg btn-secondary p-3 px-5 position-absolute top-0 end-0 m-5 rounded-pill"
               >
-                Replay
+                Main menu
               </button>
             </Link>
           </div>
