@@ -3,26 +3,19 @@ import { Link } from "react-router-dom";
 import {SocketContext} from "../../data/socketContext";
 import {useNavigate} from "react-router-dom";
 import { useContext } from "react";
-import { io } from "socket.io-client";
 
 function JoinQuiz() {
   const socket = useContext(SocketContext);
   const [playerName, setPlayerName] = useState(""); // Define the playerName state
   const [code, setCode] = useState("")
-  const [serverRoomCode, setServerRoomCode] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (socket) {
-      socket.on("newRoom", (data) => {
-        setServerRoomCode(data)
-        console.log("🚀 ~ file: JoinQuiz.jsx:18 ~ socket.on ~ data:", data)
-      })
-    } else {
+    if (!socket) {
       navigate("/multiplayer");
-      console.log("No socket found");
     }
   })
+
   const handleNameChange = (e) => {
     setPlayerName(e.target.value); // Update the playerName state when input changes
   };
@@ -30,33 +23,24 @@ function JoinQuiz() {
   const handleCodeChange = (e) => {
     setCode(e.target.value); // Update the playerName state when input changes
     setTimeout(() => {
-      
-      
+
     },1000)
   };
 function verifyRoomCode(){
-  
   const nameCode = { 
     name: playerName,
     code: code
   }
-  
- 
-
     socket.emit("nameCode", nameCode); 
-    socket.on("displayName", (data) => {
+    socket.on("displayName", () => {
       
       localStorage.setItem("name", nameCode.name)
       navigate("/multiplayer/waitingRoomStudent")
-      
     })
 
- socket.on("errorMessage", (data) =>{
-
-   alert('The room code is not valid');
-
+ socket.on("errorMessage", () =>{
+   alert("The room code is not valid");
  })
- 
 }
 
   return (
