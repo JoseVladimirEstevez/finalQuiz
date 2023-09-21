@@ -18,11 +18,25 @@ function MultiplayerHost() {
     };
 
     const handleSubmit = (e) => {
-        // Send formData to server or perform any necessary action
-        socket.emit("quizInfo", formData)
+        let isValid = true;
+        // Flag to keep track of whether the form is valid or not
 
-        navigate("/multiplayer/queue")
+        // Check if the form data is valid
+        if (formData.category === "" || formData.timePerQuestion <= 0 || formData.numberOfQuestions <= 0) {
+            alert("Please fill all the fields");
+            isValid = false;
+        }
+
+        if (isValid) { // Prevent the form from being submitted and the page from being reloaded
+            if (socket && socket.connected) { // Check if the socket is connected
+                socket.emit("quizInfo", formData);
+                navigate("/multiplayer/queue");
+            } else {
+                console.log("No socket found or socket is disconnected");
+            }
+        }
     };
+
 
     useEffect(() => {
         if (socket) {
