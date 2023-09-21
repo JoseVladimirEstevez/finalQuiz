@@ -11,53 +11,53 @@ function HostQueueing() {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
   const [numberOfPlayers, setNumberOfPlayers] = useState("0");
+  const [quizData, setQuizData] = useState(null); // Add this line
 
   async function clickPlay() {
     socket.emit("sendQuiz");
-    socket.emit("hostJoin");
+   
 
-  
     // Use a Promise to wait for the "hostJoin" event to be acknowledged by the server
     const hostJoinAck = new Promise((resolve) => {
       socket.on("hostJoinAck", () => {
         resolve();
       });
     });
-  
+
     await hostJoinAck; // Wait for the "hostJoin" event acknowledgment
-  
-    socket.on("getQuiz", (data) => {
-      localStorage.setItem("time", JSON.stringify(data.timePerQuestion));
-      //console.log('data.timePerQuestion: ', data.timePerQuestion);
-
-      localStorage.setItem("quizInfo", JSON.stringify(data));
-      navigate("/multiplayer/play");
-    });
   }
-  
-
 
   useEffect(() => {
     if (socket) {
       socket.emit("hosting", { host: "Started" });
-
+      socket.emit("hostJoin");
       socket.on("newRoom", (data) => {
         setCode(data);
       });
 
       socket.on("amountOfPlayers", (data) => {
-        console.log(data)
         setNumberOfPlayers(data);
-        
-        console.log('numberOfPlayers: ', numberOfPlayers);
-        
-      })
+      });
+
+      socket.on("getQuiz", (data) => {
+        localStorage.setItem("time", JSON.stringify(data.timePerQuestion));
+        localStorage.setItem("quizInfo", JSON.stringify(data));
+        setQuizData(data); // Store the quiz data in state
+      });
     } else {
       navigate("/multiplayer");
-      console.log("No socket found");
     }
+  }, [socket]);
 
-  }, []);
+  useEffect(() => {
+    if (quizData) {
+      navigate("/multiplayer/play"); // Navigate to the play component when quizData is available
+    }
+  }, [quizData]);
+
+  
+
+
 
   return (
     <div

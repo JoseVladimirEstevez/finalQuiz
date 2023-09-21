@@ -25,77 +25,66 @@ function Play() {
 
   useEffect(() => {
     const questionsTest = localStorage.getItem("quizInfo");
-    
+
     const questionsJSONParse = JSON.parse(questionsTest);
     setQuestions(questionsJSONParse.results);
     setNumberOfQuestions(questionsJSONParse.results.length);
     setNameStudent(localStorage.getItem("name"));
-    
+
     if (socket) {
       //startCountdown()
 
       socket.on("returnScore", (data) => {
         //console.log('data: ', data);
         localStorage.setItem("leaderBoard", JSON.stringify(data));
-      })
-      //setTime(JSON.parse(localStorage.getItem("time")));
-      //setTime(JSON.parse(data.timePerQuestion));
-      //console.log('JSON.parse(data.timePerQuestion): ', JSON.parse(data.timePerQuestion));
-      // setInterval(() => {
-      //   console.log("tik");
-      //   setTime((time) => time - 1)
-      // }, 1000);
-
+      });
     } else {
       navigate("/multiplayer");
       console.log("No socket found");
     }
   }, []);
 
-  // Function to start the countdown timer
-  // const startCountdown = () => {
-  //   clearInterval(countdownIntervalRef.current); // Clear any existing interval
-  
-  //   countdownIntervalRef.current = setInterval(() => {
-  //     setTime((prevTime) => {
-  //       if (prevTime === 0) {
-  //         clearInterval(countdownIntervalRef.current); // Stop the countdown when it reaches 0
-  //         // Show the correct answer for 5 seconds before moving to the next question
-  //         answerChosen = true;
-  //         setTimeout(() => {
-  //           setActiveQuestionIndex((value) => value + 1);
-  //           answerChosen = false;
-  //         }, 5000); // Wait for 5 seconds before moving to the next question
-  //       }
-  //       return prevTime;
-  //     });
-  //   }, 1000); // Decrease time by 1 second every second (1000 milliseconds)
-  // };
-
-
   function selectAnswerHandler(answer) {
     setIsLoading(true);
-    answerChosen = true;
-    console.log("right ans: " + questions[activeQuestionIndex].correct_answer)
-
+  
+    console.log("right ans: " + questions[activeQuestionIndex].correct_answer);
+  
     if (answer.correct) {
       setScore((value) => value + 1); // increment score
     }
+  
     const studentScore = { name: nameStudent, score: score };
-
     socket.emit("studentScore", studentScore);
-
+  
+    // Display correct answer for 5 seconds
+    const correctAnswer = questions[activeQuestionIndex].correct_answer;
+    const answerButtons = document.querySelectorAll(".answer-button");
+    answerButtons.forEach((button) => {
+      if (button.textContent === correctAnswer) {
+        button.classList.add("btn-success");
+      } else {
+        button.classList.add("btn-danger");
+      }
+    });
+    answerChosen = true;
+    setTimeout(() => {
+      answerChosen = false;
+      answerButtons.forEach((button) => {
+        button.classList.remove("btn-success");
+        button.classList.remove("btn-danger");
+      });
+      if (activeQuestionIndex === numberOfQuestions - 1) {
+        // last question
+        setQuizFinished(true);
+      } else {
+        // next question
+        setActiveQuestionIndex((value) => value + 1);
+      }
+    }, 5000);
+  
     setTimeout(() => {
       setIsLoading(false);
     }, 200);
-  }
-
-  function storeScores(){
-
-    socket.on("returnScore", (data) => {
-      console.log(data)
-    })
-    navigate("/multiplayer/leaderboard")
   }
 
   return (
@@ -103,7 +92,7 @@ function Play() {
       {" "}
       <div className="container">
         <div className="row ">
-          <Timer/>
+        <Timer activeQuestionIndex={activeQuestionIndex} />
           {quizFinished === false ? (
             <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
               <Link to="/">
@@ -166,17 +155,19 @@ function Play() {
         </div>
       </div>
       {answerChosen ? (
-      <div className="container rounded p-4 my-2"
-        style={{ backgroundColor: "#c0deff" }}>
-        <div className="row">
-          <div className="col-12 h2">
-            Correct answer: 
-            <button className="btn btn-secondary w-75 m-2 py-4 rounded-pill">
-              {questions[activeQuestionIndex].correct_answer}
-            </button>
+        <div
+          className="container rounded p-4 my-2"
+          style={{ backgroundColor: "#c0deff" }}
+        >
+          <div className="row">
+            <div className="col-12 h2">
+              Correct answer:
+              <button className="btn btn-secondary w-75 m-2 py-4 rounded-pill">
+                {questions[activeQuestionIndex].correct_answer}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
       ) : (
         <></>
       )}
