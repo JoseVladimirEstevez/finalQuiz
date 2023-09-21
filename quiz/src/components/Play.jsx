@@ -21,7 +21,6 @@ function Play() {
   const [isLoading, setIsLoading] = useState(false);
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
   const [nameStudent, setNameStudent] = useState("");
-  //const [time, setTime] = useState(0);
 
   useEffect(() => {
     const questionsTest = localStorage.getItem("quizInfo");
@@ -32,10 +31,7 @@ function Play() {
     setNameStudent(localStorage.getItem("name"));
 
     if (socket) {
-      //startCountdown()
-
       socket.on("returnScore", (data) => {
-        //console.log('data: ', data);
         localStorage.setItem("leaderBoard", JSON.stringify(data));
       });
     } else {
@@ -46,9 +42,6 @@ function Play() {
 
   function selectAnswerHandler(answer) {
     setIsLoading(true);
-  
-    console.log("right ans: " + questions[activeQuestionIndex].correct_answer);
-  
     if (answer.correct) {
       setScore((value) => value + 1); // increment score
     }
