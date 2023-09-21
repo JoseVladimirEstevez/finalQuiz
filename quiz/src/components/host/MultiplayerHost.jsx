@@ -17,7 +17,7 @@ function MultiplayerHost() {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         // Send formData to server or perform any necessary action
         socket.emit("quizInfo", formData)
 
@@ -29,6 +29,7 @@ function MultiplayerHost() {
             socket.emit("reach10", {count: 30});
         } else {
             navigate("/multiplayer");
+            console.log("No socket found");
         }
     }, []);
 

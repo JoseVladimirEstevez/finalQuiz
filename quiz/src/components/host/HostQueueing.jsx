@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../data/socketContext";
 
@@ -14,7 +15,8 @@ function HostQueueing() {
 
   async function clickPlay() {
     socket.emit("sendQuiz");
-  
+   
+
     // Use a Promise to wait for the "hostJoin" event to be acknowledged by the server
     const hostJoinAck = new Promise((resolve) => {
       socket.on("hostJoinAck", () => {
@@ -52,6 +54,10 @@ function HostQueueing() {
       navigate("/multiplayer/play"); // Navigate to the play component when quizData is available
     }
   }, [quizData]);
+
+  
+
+
 
   return (
     <div

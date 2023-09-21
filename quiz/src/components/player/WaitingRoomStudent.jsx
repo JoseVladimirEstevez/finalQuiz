@@ -16,11 +16,13 @@ function WaitingRoomStudent() {
       setUserName(localStorage.getItem("name"));
     } else{
       navigate("/multiplayer");
+      console.log("No socket found");
     }
   }, []);
 
   socket.on("getQuiz", (data) => {
     navigate("/multiplayer/play")
+    console.log("quiz info: " + data);
     localStorage.setItem("quizInfo", JSON.stringify(data));
     localStorage.setItem("time", JSON.stringify(data.timePerQuestion))
   })
