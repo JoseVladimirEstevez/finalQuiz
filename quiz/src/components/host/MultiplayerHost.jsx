@@ -129,7 +129,7 @@ function MultiplayerHost() {
                             to={
                                 `/multiplayer/queue`
                         }>
-                            <button type="submit" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill" onClick={() => handleSubmit()}>
+                            <button type="button" className="px-2 py-1 btn btn-lg btn-secondary rounded-pill" onClick={() => handleSubmit()}>
                                 Create Room
                             </button>
                         </div>
