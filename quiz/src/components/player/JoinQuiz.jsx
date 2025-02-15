@@ -6,42 +6,55 @@ import { useContext } from "react";
 
 function JoinQuiz() {
   const socket = useContext(SocketContext);
-  const [playerName, setPlayerName] = useState(""); // Define the playerName state
-  const [code, setCode] = useState("")
+  const [playerName, setPlayerName] = useState("");
+  const [code, setCode] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!socket) {
       navigate("/multiplayer");
     }
-  })
+
+    // Setup socket event listeners
+    socket.on("displayName", (data) => {
+      localStorage.setItem("name", data.name);
+      navigate("/multiplayer/waitingRoomStudent");
+    });
+
+    socket.on("errorMessage", () => {
+      alert("The room code is not valid");
+    });
+
+    // Cleanup listeners when component unmounts
+    return () => {
+      socket.off("displayName");
+      socket.off("errorMessage");
+    };
+  }, [socket, navigate]);
 
   const handleNameChange = (e) => {
-    setPlayerName(e.target.value); // Update the playerName state when input changes
+    setPlayerName(e.target.value);
   };
   
   const handleCodeChange = (e) => {
-    setCode(e.target.value); // Update the playerName state when input changes
-    setTimeout(() => {
-
-    },1000)
+    setCode(e.target.value);
   };
-function verifyRoomCode(){
-  const nameCode = { 
-    name: playerName,
-    code: code
-  }
-    socket.emit("nameCode", nameCode); 
-    socket.on("displayName", () => {
-      
-      localStorage.setItem("name", nameCode.name)
-      navigate("/multiplayer/waitingRoomStudent")
-    })
 
- socket.on("errorMessage", () =>{
-   alert("The room code is not valid");
- })
-}
+  const verifyRoomCode = () => {
+    // Input validation
+    if (!playerName.trim() || !code.trim()) {
+      alert("Please enter both name and room code");
+      return;
+    }
+
+    const nameCode = { 
+      name: playerName.trim(),
+      code: code.trim()
+    };
+
+    //console.log("Attempting to join room with code:", nameCode.code); // Debug log
+    socket.emit("nameCode", nameCode);
+  };
 
   return (
     <div

@@ -8,21 +8,25 @@ function Question({
   incorrect_answers,
   selectAnswerHandler,
 }) {
+  // Decode answers when creating the array
   function answersButtons() {
     const allAnswers = [...incorrect_answers, correct_answer].map((answer) => {
-      return { text: answer, correct: false };
+      return { 
+        text: decode(answer), // Decode the answer text immediately
+        correct: false 
+      };
     });
-    allAnswers[allAnswers.length - 1].correct = true; // last answer is the right one
+    allAnswers[allAnswers.length - 1].correct = true;
 
     return _.shuffle(
       allAnswers.map((answer, index) => {
         return (
-          <div className="col-6 text-center" key={index}>
+          <div className="col-6 text-center p-2" key={index}>
             <button
-              className="btn btn-secondary w-75 m-2 py-4 rounded-pill"
+              className="btn btn-secondary py-3 py-sm-4 rounded-3 answer-button w-100"
               onClick={() => selectAnswerHandler(answer)}
             >
-              {decode(answer.text)}
+              {answer.text} {/* No need to decode here anymore */}
             </button>
           </div>
         );
@@ -30,10 +34,13 @@ function Question({
     );
   }
 
+  // Decode question when rendering
+  const decodedQuestion = decode(question);
+
   return (
     <div className="container">
-      <div className="row">
-        <h3 className="p-3 text-center">{decode(question)}</h3>
+      <h3 className="p-3 text-center mb-4">{decodedQuestion}</h3>
+      <div className="row g-3">
         {answersButtons()}
       </div>
     </div>

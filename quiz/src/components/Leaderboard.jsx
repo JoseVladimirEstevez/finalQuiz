@@ -7,94 +7,87 @@ import { useContext } from "react";
 import { SocketContext } from "../data/socketContext";
 
 function Leaderboard() {
-
-
-  const usersScore = { "123": 0, VLAD: 0, HHH: 0 }
-  console.log(usersScore["123"])
+  const [scores, setScores] = useState([]);
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
-useEffect(() => {
-  
 
+  useEffect(() => {
+    if (socket) {
+        socket.emit("getLeaderboard");
+        
+        socket.on("returnScore", (data) => {
+            localStorage.setItem("leaderBoard", JSON.stringify(data));
+            const newScoresArray = Object.entries(data)
+                .map(([name, userData]) => ({
+                    name,
+                    categoryName: getCategoryName(userData.category), // Add helper function
+                    score: userData.score
+                }))
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 10);
+            
+            setScores(newScoresArray);
+        });
 
-})
+        return () => {
+            socket.off("returnScore");
+        };
+    }
+}, [socket]);
 
-  // const [scores, setScores] = useState([]);
-
-  // useEffect(() => {
-  //   //called upon component mount
-  //   fetchScores();
-  // }, []);
-
-  // async function fetchScores() {
-  //   const top10scores = [];
-
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: token,
-  //     },;
-  //   };
-
-  //   const response = await fetch(top10route, options);
-  //   const data = await response.json();
-
-  //   //setScores(data);
-
-  //   for (let i = 0; i < 10; i++) {
-  //     if (data[i]) {
-  //       top10scores.push({
-  //         name: data[i].name,
-  //         categoryName: data[i].categoryName,
-  //         score: data[i].score,
-  //       });
-  //     } else {
-  //       top10scores.push({ name: " ", categoryName: " ", score: " " });
-  //     }
-  //   }
-  //   setScores(top10scores);
-  //}
+// Add helper function to convert category IDs to names
+const getCategoryName = (categoryId) => {
+    const categories = {
+        "18": "Computers",
+        "23": "History",
+        "21": "Sports"
+        // Add more categories as needed
+    };
+    return categories[categoryId] || "Quiz";
+};
 
   return (
-    <div>
-      <div className="container">
-        <div className="row text-center m-5">
-          <div className="col align-items-center">
-            <h1 className="position-absolute start-50">Top Scores</h1>
-          </div>
-          <div className="col">
-            <Link to="/multiplayer/choice">
-              <button
-                type="button"
-                className="btn btn-lg btn-secondary p-3 px-5 position-absolute top-0 end-0 m-5 rounded-pill"
-              >
-                Main menu
-              </button>
-            </Link>
-          </div>
+    <div className="container-fluid">
+      {/* Header section */}
+      <div className="row align-items-center py-4">
+        <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <h1 className="display-5">Top Scores</h1>
         </div>
-        <div className="row text-center align-items-center">
-          <table className="m-5 table table-center">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {scores.map((item, index) => {
-                return (
-                  <Row
-                    name={item.name}
-                    category={item.categoryName}
-                    score={item.score}
-                    key={index}
-                  ></Row>
-                );
-              })} */}
-            </tbody>
-          </table>
+        <div className="col-12 col-md-6 text-center text-md-end">
+          <Link to="/multiplayer/choice">
+            <button
+              type="button"
+              className="btn btn-secondary px-4 py-2 rounded-pill"
+            >
+              Main menu
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Table section */}
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-10 col-lg-8">
+          <div className="table-responsive rounded">
+            <table className="table table-hover align-middle">
+              <thead className="table-light">
+                <tr>
+                  <th className="text-center" style={{ width: "40%" }}>Name</th>
+                  <th className="text-center" style={{ width: "30%" }}>Category</th>
+                  <th className="text-center" style={{ width: "30%" }}>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scores.map((item, index) => (
+                  <tr key={index} className={index === 0 ? 'table-warning' : ''}>
+                    <td className="text-center">{item.name}</td>
+                    <td className="text-center">{item.categoryName}</td>
+                    <td className="text-center fw-bold">{item.score}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

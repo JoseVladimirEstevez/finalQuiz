@@ -1,35 +1,48 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect } from 'react';
 
 function Timer({ activeQuestionIndex }) {
-  const [time, setTime] = useState(0);
-  const timeRef = useRef(time);
+  // Get time per question from localStorage
+  const getTimePerQuestion = () => {
+    try {
+      const quizInfo = JSON.parse(localStorage.getItem('quizInfo'));
+      return quizInfo.timePerQuestion || 15; // fallback to 15 if not found
+    } catch (error) {
+      //console.log('Error reading timePerQuestion:', error);
+      return 15; // fallback value
+    }
+  };
+
+  const [timeLeft, setTimeLeft] = useState(getTimePerQuestion());
 
   useEffect(() => {
-    const storedTime = JSON.parse(localStorage.getItem("time"));
-    setTime(storedTime || 0);
-    timeRef.current = storedTime || 0;
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (timeRef.current === 0) {
-        return;
-      } else {
-        setTime((time) => time - 1);
-        timeRef.current = time - 1;
-      }
+    const timePerQuestion = getTimePerQuestion();
+    setTimeLeft(timePerQuestion); // Reset timer with stored value when question changes
+    
+    const timer = setInterval(() => {
+      setTimeLeft(prev => Math.max(0, prev - 1));
     }, 1000);
-    return () => clearTimeout(timer);
-  }, [time]);
 
-  useEffect(() => {
-    setTime(JSON.parse(localStorage.getItem("time")) || 0); // Reset the timer when the question changes
-    timeRef.current = JSON.parse(localStorage.getItem("time")) || 0; // Update the timeRef.current value
+    return () => clearInterval(timer);
   }, [activeQuestionIndex]);
 
+  // Style timer based on remaining percentage of time
+  const getTimerColor = () => {
+    const totalTime = getTimePerQuestion();
+    const percentage = (timeLeft / totalTime) * 100;
+    
+    if (percentage > 66) return 'btn-success';
+    if (percentage > 33) return 'btn-warning';
+    return 'btn-danger';
+  };
+
   return (
-    <div className="m-3 d-flex align-items-center justify-content-start">
-      <h3>Time left: {time}</h3>
+    <div className="col-12 text-center mb-3">
+      <button 
+        className={`btn ${getTimerColor()} rounded-pill px-4 py-2`}
+        disabled
+      >
+        Time Remaining: {timeLeft}s
+      </button>
     </div>
   );
 }

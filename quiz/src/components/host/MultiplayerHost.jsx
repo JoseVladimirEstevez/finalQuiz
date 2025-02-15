@@ -17,33 +17,32 @@ function MultiplayerHost() {
         });
     };
 
-    const handleSubmit = (e) => {
-        let isValid = true;
-        // Flag to keep track of whether the form is valid or not
-
-        // Check if the form data is valid
+    const handleSubmit = () => {
         if (formData.category === "" || formData.timePerQuestion <= 0 || formData.numberOfQuestions <= 0) {
             alert("Please fill all the fields");
-            isValid = false;
+            return;
         }
 
-        if (isValid) { // Prevent the form from being submitted and the page from being reloaded
-            if (socket && socket.connected) { // Check if the socket is connected
-                socket.emit("quizInfo", formData);
-                navigate("/multiplayer/queue");
-            } else {
-                console.log("No socket found or socket is disconnected");
-            }
+        if (socket && socket.connected) {
+            // Store quiz info in localStorage
+            localStorage.setItem("quizInfo", JSON.stringify(formData));
+            //console.log("Sending quiz info:", formData); // Debug log
+            
+            // Set host flag
+            localStorage.setItem("isHost", "true");
+            
+            // Emit quiz info with category
+            socket.emit("quizInfo", formData);
+            navigate("/multiplayer/queue");
         }
     };
-
 
     useEffect(() => {
         if (socket) {
             socket.emit("reach10", {count: 30});
         } else {
             navigate("/multiplayer");
-            console.log("No socket found");
+            //console.log("No socket found");
         }
     }, []);
 

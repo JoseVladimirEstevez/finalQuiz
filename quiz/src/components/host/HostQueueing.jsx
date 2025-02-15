@@ -53,6 +53,22 @@ function HostQueueing() {
     }
   }, [quizData]);
 
+  // Cleanup when leaving queue
+  const handleLeaveQueue = () => {
+    localStorage.removeItem("isHost");
+    navigate("/multiplayer/choice");
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (!localStorage.getItem("quizInfo")) {
+        // Only remove if not starting a game
+        localStorage.removeItem("isHost");
+      }
+    };
+  }, []);
+
   return (
     <div
       style={{ minHeight: "100vh" }}
@@ -88,6 +104,15 @@ function HostQueueing() {
               Go Back
             </button>
           </Link>
+        </div>
+        <div className="m-2">
+          <button
+            type="button"
+            className="px-2 py-1 btn btn-lg btn-secondary rounded-pill"
+            onClick={handleLeaveQueue}
+          >
+            Leave Queue
+          </button>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ function MultiplayerChoice() {
       socket.emit('reach10', { count: 20 })
     } else {
       navigate('/multiplayer')
-      console.log('No socket found')
+      //console.log('No socket found')
     }
   }, [])
 
