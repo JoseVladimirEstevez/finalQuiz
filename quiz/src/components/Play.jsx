@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import Leaderboard from "./Leaderboard";
 import Timer from "./Timer";
+import { decode } from "html-entities";
 
 let answerChosen = false;
 
@@ -199,7 +200,7 @@ const getCategoryId = (categoryName) => {
                       {isHost ? (
                         <div className="container">
                           <h3 className="text-center mb-4 fs-4 fs-sm-3">
-                            {questions[activeQuestionIndex].question}
+                            {decode(questions[activeQuestionIndex].question)}
                           </h3>
                           <div className="d-grid gap-2 gap-sm-3">
                             {[
@@ -215,7 +216,7 @@ const getCategoryId = (categoryName) => {
                                 }`}
                                 disabled
                               >
-                                {answer}
+                                {decode(answer)}
                               </button>
                             ))}
                           </div>
@@ -250,7 +251,7 @@ const getCategoryId = (categoryName) => {
               <div className="col-12">
                 <h2 className="h3 mb-3">Correct answer:</h2>
                 <button className="btn btn-secondary w-100 w-sm-75 py-3 py-sm-4 rounded-3">
-                  {questions[activeQuestionIndex].correct_answer}
+                  {decode(questions[activeQuestionIndex].correct_answer)}
                 </button>
               </div>
             </div>

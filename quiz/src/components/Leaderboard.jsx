@@ -54,7 +54,7 @@ const getCategoryName = (categoryId) => {
           <h1 className="display-5">Top Scores</h1>
         </div>
         <div className="col-12 col-md-6 text-center text-md-end">
-          <Link to="/multiplayer/choice">
+          <Link to="/">
             <button
               type="button"
               className="btn btn-secondary px-4 py-2 rounded-pill"
